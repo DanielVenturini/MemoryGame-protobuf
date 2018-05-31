@@ -32,6 +32,10 @@ public class Interface extends javax.swing.JFrame {
     private static JButton primeiroClicado = null;
     private static JButton segundoClicado = null;
 
+    // quantidade de pares resolvidos
+    // quando chegar a trinta, o jogo termina
+    private static int quantidade = 0;
+
     /**
      * Creates new form Interface
      */
@@ -650,26 +654,30 @@ public class Interface extends javax.swing.JFrame {
     }
 
     // como o icone so eh trocado quando volta do evento
-    // precisamos executar esta funcao depois de voltar mesmo
+    // precisamos executar esta funcao em uma thread separada
     private static void verifica(){
-        if(mesmoIcone(primeiroClicado, segundoClicado)){
-            // se forem iguais, marca os dois como resolvido
-            marcaResolvido(primeiroClicado, segundoClicado);
-        } else {
-            // esconde novamente os dois botoes
-            escondeNovamente(primeiroClicado, segundoClicado);
-        }
+        new Thread(){
+            public void run(){
+                if(mesmoIcone(primeiroClicado, segundoClicado)){
+                    // se forem iguais, marca os dois como resolvido
+                    marcaResolvido(primeiroClicado, segundoClicado);
+                    quantidade += 2;
+                } else {
+                    // esconde novamente os dois botoes
+                    escondeNovamente(primeiroClicado, segundoClicado);
+                }
+                // aumenta os pontos do jogador
 
-        // aumenta os pontos do jogador
-
-        // seta as variaveis novamente
-        primeiroClicado = null;
-        segundoClicado = null;
+                // seta as variaveis novamente
+                primeiroClicado = null;
+                segundoClicado = null;
+            }
+        }.start();
     }
 
     private static void executa(JButton button){
-        // se jah foi resolvido nao faz nada
-        if(botoesIcones.get(button).isResolvido()){
+        // se jah foi resolvido ou acabaou o jogo nao faz nada
+        if(botoesIcones.get(button).isResolvido() || quantidade == 30){
             return;
         }
 
@@ -701,9 +709,6 @@ public class Interface extends javax.swing.JFrame {
         }
 
         button.setIcon(iconeNovo);
-        button.repaint();
-        button.updateUI();
-        button.revalidate();
     }
 
     private static ImageIcon iconAdd(JButton button, String iconName){
