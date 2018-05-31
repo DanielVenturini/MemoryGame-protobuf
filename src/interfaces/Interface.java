@@ -5,10 +5,12 @@
  */
 package interfaces;
 
-import java.util.LinkedList;
 import java.util.Collections;
+import java.util.HashMap;
 import javax.swing.ImageIcon;
+import java.util.LinkedList;
 import javax.swing.JButton;
+import java.util.Random;
 
 /**
  *
@@ -17,9 +19,11 @@ import javax.swing.JButton;
 public class Interface extends javax.swing.JFrame {
 
     private int i = 15;
+    private static int seed = 3;
     // cada posicao destes vetores representa um botao que tera um icone
     private static String [] icons = new String[15];
     private static LinkedList<javax.swing.JButton> botoes = new LinkedList<>();
+    private static HashMap<javax.swing.JButton, IconeControle> botoesEIcones = new HashMap<>();
 
     /**
      * Creates new form Interface
@@ -456,166 +460,175 @@ public class Interface extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void iconAdd(JButton button){
-        iconAdd(button, icons[(i)%15]);
-        i ++;
-    }
-
-    private static void iconAdd(JButton button, String iconName){
-        System.out.println("Label do primeiro botao: " + button.getLabel());
-        System.out.println("Adiconando o icone: " + iconName);
-        button.setIcon(new ImageIcon("src/game/pictures/icon_" + iconName + ".png"));
-    }
-
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        iconAdd((JButton) evt.getSource());
+        alteraIcone((JButton) evt.getSource());
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        iconAdd((JButton) evt.getSource());
+        alteraIcone((JButton) evt.getSource());
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        iconAdd((JButton) evt.getSource());
+        alteraIcone((JButton) evt.getSource());
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
         // TODO add your handling code here:
-        iconAdd((JButton) evt.getSource());
+        alteraIcone((JButton) evt.getSource());
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
         // TODO add your handling code here:
-        iconAdd((JButton) evt.getSource());
+        alteraIcone((JButton) evt.getSource());
     }//GEN-LAST:event_jButton13ActionPerformed
 
     private void jButton26ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton26ActionPerformed
         // TODO add your handling code here:
-        iconAdd((JButton) evt.getSource());
+        alteraIcone((JButton) evt.getSource());
     }//GEN-LAST:event_jButton26ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
-        iconAdd((JButton) evt.getSource());
+        alteraIcone((JButton) evt.getSource());
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
-        iconAdd((JButton) evt.getSource());
+        alteraIcone((JButton) evt.getSource());
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
-        iconAdd((JButton) evt.getSource());
+        alteraIcone((JButton) evt.getSource());
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
         // TODO add your handling code here:
-        iconAdd((JButton) evt.getSource());
+        alteraIcone((JButton) evt.getSource());
     }//GEN-LAST:event_jButton11ActionPerformed
 
     private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
         // TODO add your handling code here:
-        iconAdd((JButton) evt.getSource());
+        alteraIcone((JButton) evt.getSource());
     }//GEN-LAST:event_jButton14ActionPerformed
 
     private void jButton27ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton27ActionPerformed
         // TODO add your handling code here:
-        iconAdd((JButton) evt.getSource());
+        alteraIcone((JButton) evt.getSource());
     }//GEN-LAST:event_jButton27ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         // TODO add your handling code here:
-        iconAdd((JButton) evt.getSource());
+        alteraIcone((JButton) evt.getSource());
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         // TODO add your handling code here:
-        iconAdd((JButton) evt.getSource());
+        alteraIcone((JButton) evt.getSource());
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
         // TODO add your handling code here:
-        iconAdd((JButton) evt.getSource());
+        alteraIcone((JButton) evt.getSource());
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
         // TODO add your handling code here:
-        iconAdd((JButton) evt.getSource());
+        alteraIcone((JButton) evt.getSource());
     }//GEN-LAST:event_jButton12ActionPerformed
 
     private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
         // TODO add your handling code here:
-        iconAdd((JButton) evt.getSource());
+        alteraIcone((JButton) evt.getSource());
     }//GEN-LAST:event_jButton15ActionPerformed
 
     private void jButton28ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton28ActionPerformed
         // TODO add your handling code here:
-        iconAdd((JButton) evt.getSource());
+        alteraIcone((JButton) evt.getSource());
     }//GEN-LAST:event_jButton28ActionPerformed
 
     private void jButton16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton16ActionPerformed
         // TODO add your handling code here:
-        iconAdd((JButton) evt.getSource());
+        alteraIcone((JButton) evt.getSource());
     }//GEN-LAST:event_jButton16ActionPerformed
 
     private void jButton17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton17ActionPerformed
         // TODO add your handling code here:
-        iconAdd((JButton) evt.getSource());
+        alteraIcone((JButton) evt.getSource());
     }//GEN-LAST:event_jButton17ActionPerformed
 
     private void jButton18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton18ActionPerformed
         // TODO add your handling code here:
-        iconAdd((JButton) evt.getSource());
+        alteraIcone((JButton) evt.getSource());
     }//GEN-LAST:event_jButton18ActionPerformed
 
     private void jButton19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton19ActionPerformed
         // TODO add your handling code here:
-        iconAdd((JButton) evt.getSource());
+        alteraIcone((JButton) evt.getSource());
     }//GEN-LAST:event_jButton19ActionPerformed
 
     private void jButton25ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton25ActionPerformed
         // TODO add your handling code here:
-        iconAdd((JButton) evt.getSource());
+        alteraIcone((JButton) evt.getSource());
     }//GEN-LAST:event_jButton25ActionPerformed
 
     private void jButton29ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton29ActionPerformed
         // TODO add your handling code here:
-        iconAdd((JButton) evt.getSource());
+        alteraIcone((JButton) evt.getSource());
     }//GEN-LAST:event_jButton29ActionPerformed
 
     private void jButton21ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton21ActionPerformed
         // TODO add your handling code here:
-        iconAdd((JButton) evt.getSource());
+        alteraIcone((JButton) evt.getSource());
     }//GEN-LAST:event_jButton21ActionPerformed
 
     private void jButton20ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton20ActionPerformed
         // TODO add your handling code here:
-        iconAdd((JButton) evt.getSource());
+        alteraIcone((JButton) evt.getSource());
     }//GEN-LAST:event_jButton20ActionPerformed
 
     private void jButton22ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton22ActionPerformed
         // TODO add your handling code here:
-        iconAdd((JButton) evt.getSource());
+        alteraIcone((JButton) evt.getSource());
     }//GEN-LAST:event_jButton22ActionPerformed
 
     private void jButton23ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton23ActionPerformed
         // TODO add your handling code here:
-        iconAdd((JButton) evt.getSource());
+        alteraIcone((JButton) evt.getSource());
     }//GEN-LAST:event_jButton23ActionPerformed
 
     private void jButton24ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton24ActionPerformed
         // TODO add your handling code here:
-        iconAdd((JButton) evt.getSource());
+        alteraIcone((JButton) evt.getSource());
     }//GEN-LAST:event_jButton24ActionPerformed
 
     private void jButton30ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton30ActionPerformed
         // TODO add your handling code here:
-        iconAdd((JButton) evt.getSource());
+        alteraIcone((JButton) evt.getSource());
     }//GEN-LAST:event_jButton30ActionPerformed
+
+    private void alteraIcone(JButton button){
+        // se o botao nao tiver icone
+        ImageIcon iconeNovo;
+        if(button.getIcon() == null){
+            IconeControle icone = botoesEIcones.get(button);
+            iconeNovo = icone.getIcone();
+        } else {
+            iconeNovo = null;
+        }
+
+        button.setIcon(iconeNovo);
+    }
+
+    private static ImageIcon iconAdd(JButton button, String iconName){
+        ImageIcon icone = new ImageIcon("src/game/pictures/icon_" + iconName + ".png");
+        button.setIcon(icone);
+
+        return icone;
+    }
 
     private static void inicializaVetores(){
         icons[0] = "amazon";
@@ -668,13 +681,25 @@ public class Interface extends javax.swing.JFrame {
 
     private static void inicializaBotoes(){
         // embaralha para inserir os icones aleatoriamente
-        Collections.shuffle(botoes);
+        Collections.shuffle(botoes, new Random(seed));
 
         // para cada botao
         for(int i = 0; i < 30; i ++){
             // adicona um icone
-            iconAdd(botoes.get(i), icons[i%15]);
             // quando acabar os 15 icones, comeca denovo
+            JButton botao = botoes.get(i);
+            IconeControle icone = new IconeControle(iconAdd(botao, icons[i%15]));
+
+            botoesEIcones.put(botao, icone);
+        }
+    }
+
+    // esta funcao vai aguardar tantos segundos e depois vai esconder os icones
+    private static void aguardaEEsconde(int milisegundos) throws InterruptedException{
+        Thread.sleep(milisegundos);
+
+        for(int i = 0; i < 30; i ++){
+            
         }
     }
     /**
@@ -712,10 +737,11 @@ public class Interface extends javax.swing.JFrame {
         });
 
         // aguardar todos os componentes serem iniciados
-        Thread.sleep(5000);
+        Thread.sleep(2000);
 
         inicializaVetores();
         inicializaBotoes();
+        aguardaEEsconde(5000);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
