@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package game;
+package interfaces;
 
+import java.util.LinkedList;
+import java.util.Collections;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
@@ -14,8 +16,11 @@ import javax.swing.JButton;
  */
 public class Interface extends javax.swing.JFrame {
 
-    int i = 0;
-    static String [] icons = new String[15];
+    private int i = 15;
+    // cada posicao destes vetores representa um botao que tera um icone
+    private static String [] icons = new String[15];
+    private static LinkedList<javax.swing.JButton> botoes = new LinkedList<>();
+
     /**
      * Creates new form Interface
      */
@@ -102,60 +107,200 @@ public class Interface extends javax.swing.JFrame {
         });
 
         jButton3.setPreferredSize(new java.awt.Dimension(100, 100));
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton4.setPreferredSize(new java.awt.Dimension(100, 100));
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jButton5.setPreferredSize(new java.awt.Dimension(100, 100));
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         jButton6.setPreferredSize(new java.awt.Dimension(100, 100));
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
 
         jButton7.setPreferredSize(new java.awt.Dimension(100, 100));
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
 
         jButton8.setPreferredSize(new java.awt.Dimension(100, 100));
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
 
         jButton9.setPreferredSize(new java.awt.Dimension(100, 100));
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
 
         jButton10.setPreferredSize(new java.awt.Dimension(100, 100));
+        jButton10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton10ActionPerformed(evt);
+            }
+        });
 
         jButton11.setPreferredSize(new java.awt.Dimension(100, 100));
+        jButton11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton11ActionPerformed(evt);
+            }
+        });
 
         jButton12.setPreferredSize(new java.awt.Dimension(100, 100));
+        jButton12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton12ActionPerformed(evt);
+            }
+        });
 
         jButton13.setPreferredSize(new java.awt.Dimension(100, 100));
+        jButton13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton13ActionPerformed(evt);
+            }
+        });
 
         jButton14.setPreferredSize(new java.awt.Dimension(100, 100));
+        jButton14.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton14ActionPerformed(evt);
+            }
+        });
 
         jButton15.setPreferredSize(new java.awt.Dimension(100, 100));
+        jButton15.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton15ActionPerformed(evt);
+            }
+        });
 
         jButton16.setPreferredSize(new java.awt.Dimension(100, 100));
+        jButton16.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton16ActionPerformed(evt);
+            }
+        });
 
         jButton17.setPreferredSize(new java.awt.Dimension(100, 100));
+        jButton17.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton17ActionPerformed(evt);
+            }
+        });
 
         jButton18.setPreferredSize(new java.awt.Dimension(100, 100));
+        jButton18.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton18ActionPerformed(evt);
+            }
+        });
 
         jButton19.setPreferredSize(new java.awt.Dimension(100, 100));
+        jButton19.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton19ActionPerformed(evt);
+            }
+        });
 
         jButton21.setPreferredSize(new java.awt.Dimension(100, 100));
+        jButton21.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton21ActionPerformed(evt);
+            }
+        });
 
         jButton20.setPreferredSize(new java.awt.Dimension(100, 100));
+        jButton20.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton20ActionPerformed(evt);
+            }
+        });
 
         jButton22.setPreferredSize(new java.awt.Dimension(100, 100));
+        jButton22.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton22ActionPerformed(evt);
+            }
+        });
 
         jButton23.setPreferredSize(new java.awt.Dimension(100, 100));
+        jButton23.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton23ActionPerformed(evt);
+            }
+        });
 
         jButton24.setPreferredSize(new java.awt.Dimension(100, 100));
+        jButton24.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton24ActionPerformed(evt);
+            }
+        });
 
         jButton25.setPreferredSize(new java.awt.Dimension(100, 100));
+        jButton25.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton25ActionPerformed(evt);
+            }
+        });
 
         jButton26.setPreferredSize(new java.awt.Dimension(100, 100));
+        jButton26.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton26ActionPerformed(evt);
+            }
+        });
 
         jButton27.setPreferredSize(new java.awt.Dimension(100, 100));
+        jButton27.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton27ActionPerformed(evt);
+            }
+        });
 
         jButton28.setPreferredSize(new java.awt.Dimension(100, 100));
+        jButton28.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton28ActionPerformed(evt);
+            }
+        });
 
         jButton29.setPreferredSize(new java.awt.Dimension(100, 100));
+        jButton29.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton29ActionPerformed(evt);
+            }
+        });
 
         jButton30.setPreferredSize(new java.awt.Dimension(100, 100));
+        jButton30.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton30ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -311,10 +456,15 @@ public class Interface extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private boolean iconAdd(JButton button){
+    private void iconAdd(JButton button){
+        iconAdd(button, icons[(i)%15]);
+        i ++;
+    }
 
-        button.setIcon(new ImageIcon("src/tictactoe/pictures/icon_" + icons[i ++] + ".png"));
-        return true;
+    private static void iconAdd(JButton button, String iconName){
+        System.out.println("Label do primeiro botao: " + button.getLabel());
+        System.out.println("Adiconando o icone: " + iconName);
+        button.setIcon(new ImageIcon("src/game/pictures/icon_" + iconName + ".png"));
     }
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -327,10 +477,210 @@ public class Interface extends javax.swing.JFrame {
         iconAdd((JButton) evt.getSource());
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        iconAdd((JButton) evt.getSource());
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+        // TODO add your handling code here:
+        iconAdd((JButton) evt.getSource());
+    }//GEN-LAST:event_jButton10ActionPerformed
+
+    private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
+        // TODO add your handling code here:
+        iconAdd((JButton) evt.getSource());
+    }//GEN-LAST:event_jButton13ActionPerformed
+
+    private void jButton26ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton26ActionPerformed
+        // TODO add your handling code here:
+        iconAdd((JButton) evt.getSource());
+    }//GEN-LAST:event_jButton26ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        iconAdd((JButton) evt.getSource());
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+        iconAdd((JButton) evt.getSource());
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:
+        iconAdd((JButton) evt.getSource());
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
+        // TODO add your handling code here:
+        iconAdd((JButton) evt.getSource());
+    }//GEN-LAST:event_jButton11ActionPerformed
+
+    private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
+        // TODO add your handling code here:
+        iconAdd((JButton) evt.getSource());
+    }//GEN-LAST:event_jButton14ActionPerformed
+
+    private void jButton27ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton27ActionPerformed
+        // TODO add your handling code here:
+        iconAdd((JButton) evt.getSource());
+    }//GEN-LAST:event_jButton27ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        // TODO add your handling code here:
+        iconAdd((JButton) evt.getSource());
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        // TODO add your handling code here:
+        iconAdd((JButton) evt.getSource());
+    }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        // TODO add your handling code here:
+        iconAdd((JButton) evt.getSource());
+    }//GEN-LAST:event_jButton9ActionPerformed
+
+    private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
+        // TODO add your handling code here:
+        iconAdd((JButton) evt.getSource());
+    }//GEN-LAST:event_jButton12ActionPerformed
+
+    private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
+        // TODO add your handling code here:
+        iconAdd((JButton) evt.getSource());
+    }//GEN-LAST:event_jButton15ActionPerformed
+
+    private void jButton28ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton28ActionPerformed
+        // TODO add your handling code here:
+        iconAdd((JButton) evt.getSource());
+    }//GEN-LAST:event_jButton28ActionPerformed
+
+    private void jButton16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton16ActionPerformed
+        // TODO add your handling code here:
+        iconAdd((JButton) evt.getSource());
+    }//GEN-LAST:event_jButton16ActionPerformed
+
+    private void jButton17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton17ActionPerformed
+        // TODO add your handling code here:
+        iconAdd((JButton) evt.getSource());
+    }//GEN-LAST:event_jButton17ActionPerformed
+
+    private void jButton18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton18ActionPerformed
+        // TODO add your handling code here:
+        iconAdd((JButton) evt.getSource());
+    }//GEN-LAST:event_jButton18ActionPerformed
+
+    private void jButton19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton19ActionPerformed
+        // TODO add your handling code here:
+        iconAdd((JButton) evt.getSource());
+    }//GEN-LAST:event_jButton19ActionPerformed
+
+    private void jButton25ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton25ActionPerformed
+        // TODO add your handling code here:
+        iconAdd((JButton) evt.getSource());
+    }//GEN-LAST:event_jButton25ActionPerformed
+
+    private void jButton29ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton29ActionPerformed
+        // TODO add your handling code here:
+        iconAdd((JButton) evt.getSource());
+    }//GEN-LAST:event_jButton29ActionPerformed
+
+    private void jButton21ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton21ActionPerformed
+        // TODO add your handling code here:
+        iconAdd((JButton) evt.getSource());
+    }//GEN-LAST:event_jButton21ActionPerformed
+
+    private void jButton20ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton20ActionPerformed
+        // TODO add your handling code here:
+        iconAdd((JButton) evt.getSource());
+    }//GEN-LAST:event_jButton20ActionPerformed
+
+    private void jButton22ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton22ActionPerformed
+        // TODO add your handling code here:
+        iconAdd((JButton) evt.getSource());
+    }//GEN-LAST:event_jButton22ActionPerformed
+
+    private void jButton23ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton23ActionPerformed
+        // TODO add your handling code here:
+        iconAdd((JButton) evt.getSource());
+    }//GEN-LAST:event_jButton23ActionPerformed
+
+    private void jButton24ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton24ActionPerformed
+        // TODO add your handling code here:
+        iconAdd((JButton) evt.getSource());
+    }//GEN-LAST:event_jButton24ActionPerformed
+
+    private void jButton30ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton30ActionPerformed
+        // TODO add your handling code here:
+        iconAdd((JButton) evt.getSource());
+    }//GEN-LAST:event_jButton30ActionPerformed
+
+    private static void inicializaVetores(){
+        icons[0] = "amazon";
+        icons[1] = "lg";
+        icons[2] = "brasil";
+        icons[3] = "chrome";
+        icons[4] = "cisco";
+        icons[5] = "exercito";
+        icons[6] = "git";
+        icons[7] = "ibm";
+        icons[8] = "intel";
+        icons[9] = "linux";
+        icons[10] = "mozilla";
+        icons[11] = "naruto";
+        icons[12] = "starbucks";
+        icons[13] = "sun";
+        icons[14] = "windows";
+
+        botoes.add(jButton1);
+        botoes.add(jButton2);
+        botoes.add(jButton3);
+        botoes.add(jButton4);
+        botoes.add(jButton5);
+        botoes.add(jButton6);
+        botoes.add(jButton7);
+        botoes.add(jButton8);
+        botoes.add(jButton9);
+        botoes.add(jButton10);
+        botoes.add(jButton11);
+        botoes.add(jButton12);
+        botoes.add(jButton13);
+        botoes.add(jButton14);
+        botoes.add(jButton15);
+        botoes.add(jButton16);
+        botoes.add(jButton17);
+        botoes.add(jButton18);
+        botoes.add(jButton19);
+        botoes.add(jButton20);
+        botoes.add(jButton21);
+        botoes.add(jButton22);
+        botoes.add(jButton23);
+        botoes.add(jButton24);
+        botoes.add(jButton25);
+        botoes.add(jButton26);
+        botoes.add(jButton27);
+        botoes.add(jButton28);
+        botoes.add(jButton29);
+        botoes.add(jButton30);
+    }
+
+    private static void inicializaBotoes(){
+        // embaralha para inserir os icones aleatoriamente
+        Collections.shuffle(botoes);
+
+        // para cada botao
+        for(int i = 0; i < 30; i ++){
+            // adicona um icone
+            iconAdd(botoes.get(i), icons[i%15]);
+            // quando acabar os 15 icones, comeca denovo
+        }
+    }
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[]) throws InterruptedException {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -361,57 +711,47 @@ public class Interface extends javax.swing.JFrame {
             }
         });
 
-        icons[0] = "amazon";
-        icons[1] = "lg";
-        icons[2] = "brasil";
-        icons[3] = "chrome";
-        icons[4] = "cisco";
-        icons[5] = "exercito";
-        icons[6] = "git";
-        icons[7] = "ibm";
-        icons[8] = "intel";
-        icons[9] = "linux";
-        icons[10] = "mozilla";
-        icons[11] = "naruto";
-        icons[12] = "starbucks";
-        icons[13] = "sun";
-        icons[14] = "windows";
+        // aguardar todos os componentes serem iniciados
+        Thread.sleep(5000);
+
+        inicializaVetores();
+        inicializaBotoes();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton11;
-    private javax.swing.JButton jButton12;
-    private javax.swing.JButton jButton13;
-    private javax.swing.JButton jButton14;
-    private javax.swing.JButton jButton15;
-    private javax.swing.JButton jButton16;
-    private javax.swing.JButton jButton17;
-    private javax.swing.JButton jButton18;
-    private javax.swing.JButton jButton19;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton20;
-    private javax.swing.JButton jButton21;
-    private javax.swing.JButton jButton22;
-    private javax.swing.JButton jButton23;
-    private javax.swing.JButton jButton24;
-    private javax.swing.JButton jButton25;
-    private javax.swing.JButton jButton26;
-    private javax.swing.JButton jButton27;
-    private javax.swing.JButton jButton28;
-    private javax.swing.JButton jButton29;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton30;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
+    private static javax.swing.JButton jButton1;
+    private static javax.swing.JButton jButton10;
+    private static javax.swing.JButton jButton11;
+    private static javax.swing.JButton jButton12;
+    private static javax.swing.JButton jButton13;
+    private static javax.swing.JButton jButton14;
+    private static javax.swing.JButton jButton15;
+    private static javax.swing.JButton jButton16;
+    private static javax.swing.JButton jButton17;
+    private static javax.swing.JButton jButton18;
+    private static javax.swing.JButton jButton19;
+    private static javax.swing.JButton jButton2;
+    private static javax.swing.JButton jButton20;
+    private static javax.swing.JButton jButton21;
+    private static javax.swing.JButton jButton22;
+    private static javax.swing.JButton jButton23;
+    private static javax.swing.JButton jButton24;
+    private static javax.swing.JButton jButton25;
+    private static javax.swing.JButton jButton26;
+    private static javax.swing.JButton jButton27;
+    private static javax.swing.JButton jButton28;
+    private static javax.swing.JButton jButton29;
+    private static javax.swing.JButton jButton3;
+    private static javax.swing.JButton jButton30;
+    private static javax.swing.JButton jButton4;
+    private static javax.swing.JButton jButton5;
+    private static javax.swing.JButton jButton6;
+    private static javax.swing.JButton jButton7;
+    private static javax.swing.JButton jButton8;
+    private static javax.swing.JButton jButton9;
+    private static javax.swing.JLabel jLabel1;
+    private static javax.swing.JLabel jLabel2;
+    private static javax.swing.JPanel jPanel1;
+    private static javax.swing.JPanel jPanel2;
     // End of variables declaration//GEN-END:variables
 }
