@@ -28,4 +28,8 @@ public class IconeControle {
     public boolean isResolvido() {
         return resolvido;
     }
+
+    public void setResolvido(){
+        resolvido = true;
+    }
 }

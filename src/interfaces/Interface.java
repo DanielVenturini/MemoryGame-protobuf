@@ -23,7 +23,14 @@ public class Interface extends javax.swing.JFrame {
     // cada posicao destes vetores representa um botao que tera um icone
     private static String [] icons = new String[15];
     private static LinkedList<javax.swing.JButton> botoes = new LinkedList<>();
-    private static HashMap<javax.swing.JButton, IconeControle> botoesEIcones = new HashMap<>();
+    private static HashMap<javax.swing.JButton, IconeControle> botoesIcones = new HashMap<>();
+
+    // esses dois vao ser o controle dos botoes clicados
+    // quando eu clicar em um, guardo na variavel primeiroClicado
+    // quando clicar denovo, segundoClicado
+    // ai configuro se os dois icones sao os mesmos
+    private static JButton primeiroClicado = null;
+    private static JButton segundoClicado = null;
 
     /**
      * Creates new form Interface
@@ -88,6 +95,11 @@ public class Interface extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                formComponentShown(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(153, 255, 153));
         jPanel1.setToolTipText("");
@@ -462,165 +474,236 @@ public class Interface extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        alteraIcone((JButton) evt.getSource());
+        executa((JButton) evt.getSource());
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        alteraIcone((JButton) evt.getSource());
+        executa((JButton) evt.getSource());
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        alteraIcone((JButton) evt.getSource());
+        executa((JButton) evt.getSource());
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
         // TODO add your handling code here:
-        alteraIcone((JButton) evt.getSource());
+        executa((JButton) evt.getSource());
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
         // TODO add your handling code here:
-        alteraIcone((JButton) evt.getSource());
+        executa((JButton) evt.getSource());
     }//GEN-LAST:event_jButton13ActionPerformed
 
     private void jButton26ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton26ActionPerformed
         // TODO add your handling code here:
-        alteraIcone((JButton) evt.getSource());
+        executa((JButton) evt.getSource());
     }//GEN-LAST:event_jButton26ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
-        alteraIcone((JButton) evt.getSource());
+        executa((JButton) evt.getSource());
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
-        alteraIcone((JButton) evt.getSource());
+        executa((JButton) evt.getSource());
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
-        alteraIcone((JButton) evt.getSource());
+        executa((JButton) evt.getSource());
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
         // TODO add your handling code here:
-        alteraIcone((JButton) evt.getSource());
+        executa((JButton) evt.getSource());
     }//GEN-LAST:event_jButton11ActionPerformed
 
     private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
         // TODO add your handling code here:
-        alteraIcone((JButton) evt.getSource());
+        executa((JButton) evt.getSource());
     }//GEN-LAST:event_jButton14ActionPerformed
 
     private void jButton27ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton27ActionPerformed
         // TODO add your handling code here:
-        alteraIcone((JButton) evt.getSource());
+        executa((JButton) evt.getSource());
     }//GEN-LAST:event_jButton27ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         // TODO add your handling code here:
-        alteraIcone((JButton) evt.getSource());
+        executa((JButton) evt.getSource());
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         // TODO add your handling code here:
-        alteraIcone((JButton) evt.getSource());
+        executa((JButton) evt.getSource());
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
         // TODO add your handling code here:
-        alteraIcone((JButton) evt.getSource());
+        executa((JButton) evt.getSource());
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
         // TODO add your handling code here:
-        alteraIcone((JButton) evt.getSource());
+        executa((JButton) evt.getSource());
     }//GEN-LAST:event_jButton12ActionPerformed
 
     private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
         // TODO add your handling code here:
-        alteraIcone((JButton) evt.getSource());
+        executa((JButton) evt.getSource());
     }//GEN-LAST:event_jButton15ActionPerformed
 
     private void jButton28ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton28ActionPerformed
         // TODO add your handling code here:
-        alteraIcone((JButton) evt.getSource());
+        executa((JButton) evt.getSource());
     }//GEN-LAST:event_jButton28ActionPerformed
 
     private void jButton16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton16ActionPerformed
         // TODO add your handling code here:
-        alteraIcone((JButton) evt.getSource());
+        executa((JButton) evt.getSource());
     }//GEN-LAST:event_jButton16ActionPerformed
 
     private void jButton17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton17ActionPerformed
         // TODO add your handling code here:
-        alteraIcone((JButton) evt.getSource());
+        executa((JButton) evt.getSource());
     }//GEN-LAST:event_jButton17ActionPerformed
 
     private void jButton18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton18ActionPerformed
         // TODO add your handling code here:
-        alteraIcone((JButton) evt.getSource());
+        executa((JButton) evt.getSource());
     }//GEN-LAST:event_jButton18ActionPerformed
 
     private void jButton19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton19ActionPerformed
         // TODO add your handling code here:
-        alteraIcone((JButton) evt.getSource());
+        executa((JButton) evt.getSource());
     }//GEN-LAST:event_jButton19ActionPerformed
 
     private void jButton25ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton25ActionPerformed
         // TODO add your handling code here:
-        alteraIcone((JButton) evt.getSource());
+        executa((JButton) evt.getSource());
     }//GEN-LAST:event_jButton25ActionPerformed
 
     private void jButton29ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton29ActionPerformed
         // TODO add your handling code here:
-        alteraIcone((JButton) evt.getSource());
+        executa((JButton) evt.getSource());
     }//GEN-LAST:event_jButton29ActionPerformed
 
     private void jButton21ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton21ActionPerformed
         // TODO add your handling code here:
-        alteraIcone((JButton) evt.getSource());
+        executa((JButton) evt.getSource());
     }//GEN-LAST:event_jButton21ActionPerformed
 
     private void jButton20ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton20ActionPerformed
         // TODO add your handling code here:
-        alteraIcone((JButton) evt.getSource());
+        executa((JButton) evt.getSource());
     }//GEN-LAST:event_jButton20ActionPerformed
 
     private void jButton22ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton22ActionPerformed
         // TODO add your handling code here:
-        alteraIcone((JButton) evt.getSource());
+        executa((JButton) evt.getSource());
     }//GEN-LAST:event_jButton22ActionPerformed
 
     private void jButton23ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton23ActionPerformed
         // TODO add your handling code here:
-        alteraIcone((JButton) evt.getSource());
+        executa((JButton) evt.getSource());
     }//GEN-LAST:event_jButton23ActionPerformed
 
     private void jButton24ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton24ActionPerformed
         // TODO add your handling code here:
-        alteraIcone((JButton) evt.getSource());
+        executa((JButton) evt.getSource());
     }//GEN-LAST:event_jButton24ActionPerformed
 
     private void jButton30ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton30ActionPerformed
         // TODO add your handling code here:
-        alteraIcone((JButton) evt.getSource());
+        executa((JButton) evt.getSource());
     }//GEN-LAST:event_jButton30ActionPerformed
 
-    private void alteraIcone(JButton button){
+    private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formComponentShown
+
+    private static boolean mesmoIcone(JButton primeiro, JButton segundo){
+        // verificando pela descricao, no caso, o nome do icone
+        return botoesIcones.get(primeiro).getIcone().getDescription() == botoesIcones.get(segundo).getIcone().getDescription();
+    }
+
+    private static void marcaResolvido(JButton primeiro, JButton segundo){
+        // marca estes como resolvido
+        botoesIcones.get(primeiro).setResolvido();
+        botoesIcones.get(segundo).setResolvido();
+    }
+
+    private static void escondeNovamente(JButton primeiro, JButton segundo){
+        try{
+            // aguarda quase um segundo e esconde o icone
+            Thread.sleep(700);
+
+            alteraIcone(primeiro);
+            alteraIcone(segundo);
+        } catch (Exception ex) {
+            System.out.println("Erro dentro de esconder os icones: " + ex);
+        }
+    }
+
+    // como o icone so eh trocado quando volta do evento
+    // precisamos executar esta funcao depois de voltar mesmo
+    private static void verifica(){
+        if(mesmoIcone(primeiroClicado, segundoClicado)){
+            // se forem iguais, marca os dois como resolvido
+            marcaResolvido(primeiroClicado, segundoClicado);
+        } else {
+            // esconde novamente os dois botoes
+            escondeNovamente(primeiroClicado, segundoClicado);
+        }
+
+        // aumenta os pontos do jogador
+
+        // seta as variaveis novamente
+        primeiroClicado = null;
+        segundoClicado = null;
+    }
+
+    private static void executa(JButton button){
+        // se jah foi resolvido nao faz nada
+        if(botoesIcones.get(button).isResolvido()){
+            return;
+        }
+
+        // primeiro revela o icone
+        alteraIcone(button);
+
+        // atribui a uma das variaveis clicaveis
+        if(primeiroClicado == null){
+            // guarda este botao e espera o proximo
+            primeiroClicado = button;
+            return;
+        } else {
+            // guarda o segundo
+            segundoClicado = button;
+        }
+
+        // faz o resto das verificacoes
+        verifica();
+    }
+
+    private static void alteraIcone(JButton button){
         // se o botao nao tiver icone
         ImageIcon iconeNovo;
         if(button.getIcon() == null){
-            IconeControle icone = botoesEIcones.get(button);
+            IconeControle icone = botoesIcones.get(button);
             iconeNovo = icone.getIcone();
         } else {
             iconeNovo = null;
         }
 
         button.setIcon(iconeNovo);
+        button.repaint();
+        button.updateUI();
+        button.revalidate();
     }
 
     private static ImageIcon iconAdd(JButton button, String iconName){
@@ -628,6 +711,74 @@ public class Interface extends javax.swing.JFrame {
         button.setIcon(icone);
 
         return icone;
+    }
+
+    private static void inicializaBotoes(){
+        // embaralha para inserir os icones aleatoriamente
+        Collections.shuffle(botoes, new Random(seed));
+
+        // para cada botao
+        for(int i = 0; i < 30; i ++){
+            // adicona um icone
+            // quando acabar os 15 icones, comeca denovo
+            JButton botao = botoes.get(i);
+            IconeControle icone = new IconeControle(iconAdd(botao, icons[i%15]));
+            // esta descricao sera verificada a igualdade entre dois botoes
+            icone.getIcone().setDescription(icons[i%15]);
+
+            botoesIcones.put(botao, icone);
+        }
+    }
+
+    // esta funcao vai aguardar tantos segundos e depois vai esconder os icones
+    private static void aguardaEEsconde(int milisegundos) throws InterruptedException{
+        Thread.sleep(milisegundos);
+
+        JButton botao;
+        for(int i = 0; i < 30; i ++){
+            alteraIcone(botoes.get(i));
+        }
+    }
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) throws InterruptedException {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(Interface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(Interface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(Interface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(Interface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new Interface().setVisible(true);
+            }
+        });
+
+        // aguardar todos os componentes serem iniciados
+        Thread.sleep(2000);
+
+        inicializaVetores();
+        inicializaBotoes();
+        aguardaEEsconde(3000);
     }
 
     private static void inicializaVetores(){
@@ -679,72 +830,7 @@ public class Interface extends javax.swing.JFrame {
         botoes.add(jButton30);
     }
 
-    private static void inicializaBotoes(){
-        // embaralha para inserir os icones aleatoriamente
-        Collections.shuffle(botoes, new Random(seed));
-
-        // para cada botao
-        for(int i = 0; i < 30; i ++){
-            // adicona um icone
-            // quando acabar os 15 icones, comeca denovo
-            JButton botao = botoes.get(i);
-            IconeControle icone = new IconeControle(iconAdd(botao, icons[i%15]));
-
-            botoesEIcones.put(botao, icone);
-        }
-    }
-
-    // esta funcao vai aguardar tantos segundos e depois vai esconder os icones
-    private static void aguardaEEsconde(int milisegundos) throws InterruptedException{
-        Thread.sleep(milisegundos);
-
-        for(int i = 0; i < 30; i ++){
-            
-        }
-    }
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) throws InterruptedException {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Interface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Interface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Interface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Interface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Interface().setVisible(true);
-            }
-        });
-
-        // aguardar todos os componentes serem iniciados
-        Thread.sleep(2000);
-
-        inicializaVetores();
-        inicializaBotoes();
-        aguardaEEsconde(5000);
-    }
-
-    // Variables declaration - do not modify//GEN-BEGIN:variables
+	// Variables declaration - do not modify//GEN-BEGIN:variables
     private static javax.swing.JButton jButton1;
     private static javax.swing.JButton jButton10;
     private static javax.swing.JButton jButton11;
