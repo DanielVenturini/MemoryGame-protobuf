@@ -1,0 +1,2 @@
+protoc --proto_path=./ --java_out=./ Agenda.proto
+protoc --proto_path=./ --python_out=./ Agenda.proto
