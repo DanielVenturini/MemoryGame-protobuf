@@ -1,2 +1,2 @@
-protoc --proto_path=./ --java_out=./ Agenda.proto
-protoc --proto_path=./ --python_out=./ Agenda.proto
+protoc --proto_path=./ --java_out=../src/emRede MemoryGame.proto
+protoc --proto_path=./ --python_out=./ MemoryGame.proto

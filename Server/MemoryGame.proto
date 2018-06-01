@@ -1,0 +1,25 @@
+syntax="proto2";
+
+service MemoryGame {
+
+	// O servidor ira retornar um endereco
+	// este endereco é o endereço de multcastSocket onde os clientes de um grupo estao jogando
+
+	// quando for iniciar um jogo
+	rpc Jogar() returns (Endereco) {}
+
+	// envia o id que quer assistir e recebe o endereco
+	rpc Assistir(Id) returns (Endereco) {}
+
+}
+
+// quando um cliente solicitar assistir
+message Endereco {
+	required int32 id = 1;
+	required string endereco = 2;
+	required int32 porta = 3;
+}
+
+message Id {
+	required int32 id = 1;
+}

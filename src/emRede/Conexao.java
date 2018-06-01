@@ -7,6 +7,20 @@ package emRede;
 
 import io.grpc.ManagedChannel;
 import java.util.Random;
+import com.google.protobuf.Message;
+import io.grpc.ManagedChannel;
+import io.grpc.ManagedChannelBuilder;
+import io.grpc.Status;
+import io.grpc.StatusRuntimeException;
+import io.grpc.stub.StreamObserver;
+import java.io.IOException;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Random;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.logging.Logger;
 
 /**
@@ -19,7 +33,7 @@ public class Conexao {
     private static int porta;
     //private static final Logger logger = Logger.getLogger(RouteGuideClient.class.getName());
 
-    private final ManagedChannel channel;
+    private ManagedChannel channel;
     //private final RouteGuideBlockingStub blockingStub;
     //private final RouteGuideStub asyncStub;
 
@@ -27,10 +41,15 @@ public class Conexao {
     //private TestHelper testHelper;
 
     public Conexao(String ip, int porta){
-        this(ManagedChannelBuilder.forAddress(ip, porta).usePlaintext(true));
+        criaConexao(ip, porta);
 
         this.ip = ip;
         this.porta = porta;
+    }
+
+    private void criaConexao(String ip, int porta){
+        ManagedChannelBuilder channelBuilder = ManagedChannelBuilder.forAddress(ip, porta).usePlaintext(true);
+        channel = channelBuilder.build();
     }
 
     private void conecta(){
