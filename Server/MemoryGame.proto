@@ -6,7 +6,9 @@ service MemoryGame {
 	// este endereco é o endereço de multcastSocket onde os clientes de um grupo estao jogando
 
 	// quando for iniciar um jogo
-	rpc Jogar() returns (Endereco) {}
+	// o id nao é usado para nada
+	// mas o protobuf requer algo como parametro
+	rpc Jogar(Id) returns (Endereco) {}
 
 	// envia o id que quer assistir e recebe o endereco
 	rpc Assistir(Id) returns (Endereco) {}
