@@ -1,12 +1,13 @@
 syntax="proto2";
+option java_package = "emRede";
 
 service MemoryGame {
 
 	// O servidor ira retornar um endereco
-	// este endereco é o endereço de multcastSocket onde os clientes de um grupo estao jogando
+	// este endereco eh o endereco de multcastSocket onde os clientes de um grupo estao jogando
 
 	// quando for iniciar um jogo
-	// o id nao é usado para nada
+	// o id nao eh usado para nada
 	// mas o protobuf requer algo como parametro
 	rpc Jogar(Id) returns (Endereco) {}
 
@@ -14,7 +15,7 @@ service MemoryGame {
 	rpc Assistir(Id) returns (Endereco) {}
 
 	// quando acabar o jogo, avisa o servidor
-	// o Id retorno nao servirá para nada
+	// o Id retorno nao servira para nada
 	rpc FimJogo(Id) returns (Id) {}
 
 }
@@ -26,6 +27,6 @@ message Endereco {
 	required int32 porta = 3;
 }
 
-message Id {
+message Id{
 	required int32 id = 1;
 }

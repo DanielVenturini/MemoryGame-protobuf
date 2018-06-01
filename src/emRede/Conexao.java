@@ -23,56 +23,57 @@ import java.util.Random;
 import io.grpc.Status;
 import java.util.List;
 
+// Endereco.newBuilder();
+
 /**
  *
  * @author venturini
  */
 public class Conexao {
 
-    private static String ip;
-    private static int porta;
-    //private static final Logger logger = Logger.getLogger(RouteGuideClient.class.getName());
-
     private ManagedChannel channel;
-    //private final RouteGuideBlockingStub blockingStub;
-    //private final RouteGuideStub asyncStub;
-
     private Random random = new Random();
-    //private TestHelper testHelper;
 
     public Conexao(String ip, int porta){
-        criaConexao(ip, porta);
+        this(ManagedChannelBuilder.forAddress(ip, porta).usePlaintext().build());
 
-        this.ip = ip;
-        this.porta = porta;
-    }
-
-    private void criaConexao(String ip, int porta){
-        ManagedChannelBuilder channelBuilder = ManagedChannelBuilder.forAddress(ip, porta).usePlaintext(true);
-        channel = channelBuilder.build();
-    }
-
-    private void conecta(){
+        //criaToco(criaConexao(ip, porta));
         
     }
 
-    public void RouteGuideClient(String host, int port) {
+    public MemoryGameOuterClass.Endereco Jogar(){
+        MemoryGameOuterClass.Endereco endereco;
+
+        //endereco = channel.
+        //Endereco.newBuilder();
+    }
+
+    public void criaToco(ManagedChannelBuilder<?> channelBuilder){
+        channel = channelBuilder.build();
+        blockingStub = RouteGuideGrpc.newBlockingStub(channel);
+        asyncStub = RouteGuideGrpc.newStub(channel);
+    }
+
+    // cria um canal para se conectar com o servidor
+    private ManagedChannelBuilder<?> criaConexao(String ip, int porta){
+        return ManagedChannelBuilder.forAddress(ip, porta).usePlaintext(true);
     }
 
     public void greet(String name) {
         System.out.println("Will try to greet " + name + " ...");
 
         // cria um builder
-        AgendaOuterClass.Contato.Builder builder = AgendaOuterClass.Contato.newBuilder();
+        MemoryGameOuterClass.Endereco.Builder builder = MemoryGameOuterClass.Endereco.newBuilder();
         // adicionando o que tiver de adicionar
-        builder.setNome("Danielzin");
-        builder.setTelefone("4499737489");
+        builder.setId(-1);
+        builder.setEndereco("4499737489");
+        builder.setPorta(2+1);
 
         // constroi seja lah o que ele estah construindo
-        AgendaOuterClass.Contato contato = builder.build();
+        MemoryGameOuterClass.Endereco contato = builder.build();
 
         // o que o servidor responder vai ser guardado aqui
-        AgendaOuterClass.Contato response;
+        MemoryGameOuterClass.Endereco response;
 
 
       /*try {
