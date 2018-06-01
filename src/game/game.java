@@ -5,17 +5,20 @@
  */
 package game;
 
+import interfaces.Inicial;
+
 /**
  *
  * @author venturini
  */
-public class TicTacToeProtobufGRPC {
+public class game {
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        new Inicial().main(null);
     }
     
 }

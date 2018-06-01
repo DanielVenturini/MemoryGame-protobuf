@@ -5,6 +5,8 @@
         <group>
             <file>file:/C:/Users/Daniel/Documents/GitHub/MemoryGame-gRPC-protobuf/src/interfaces/Interface.java</file>
             <file>file:/C:/Users/Daniel/Documents/GitHub/MemoryGame-gRPC-protobuf/src/interfaces/Inicial.java</file>
+            <file>file:/C:/Users/Daniel/Documents/GitHub/MemoryGame-gRPC-protobuf/src/interfaces/FimJogo.java</file>
+            <file>file:/C:/Users/Daniel/Documents/GitHub/MemoryGame-gRPC-protobuf/src/game/game.java</file>
         </group>
     </open-files>
 </project-private>

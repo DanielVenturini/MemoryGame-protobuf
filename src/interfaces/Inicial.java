@@ -110,13 +110,17 @@ public class Inicial extends javax.swing.JFrame {
 
         // tira a borda vermelha, se tiver
         nickText.setBorder(null);
+        // passar o nick para a outra tela
+        String[] params = new String[1];
+        params[0] = nick;
+        setVisible(false);
 
         new Thread(){
             @Override
             public void run(){
-                Interface in = new Interface();
-                in.setVisible(true);
-                //in.dispose();
+                Interface in = new Interface(); // cria a tela interface
+                in.dispose();                   // sobrepoe esta com a interface
+                in.main(params);                // chama a main da interface
             }
         }.start();
 
