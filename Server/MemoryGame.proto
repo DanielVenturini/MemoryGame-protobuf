@@ -13,6 +13,10 @@ service MemoryGame {
 	// envia o id que quer assistir e recebe o endereco
 	rpc Assistir(Id) returns (Endereco) {}
 
+	// quando acabar o jogo, avisa o servidor
+	// o Id retorno nao servirá para nada
+	rpc FimJogo(Id) returns (Id) {}
+
 }
 
 // quando um cliente solicitar assistir
