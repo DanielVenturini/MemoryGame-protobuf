@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='MemoryGame.proto',
   package='',
   syntax='proto2',
-  serialized_pb=_b('\n\x10MemoryGame.proto\"7\n\x08\x45ndereco\x12\n\n\x02id\x18\x01 \x02(\x05\x12\x10\n\x08\x65ndereco\x18\x02 \x02(\t\x12\r\n\x05porta\x18\x03 \x02(\x05\"\x10\n\x02Id\x12\n\n\x02id\x18\x01 \x02(\x05\x42\x08\n\x06\x65mRede')
+  serialized_pb=_b('\n\x10MemoryGame.proto\"7\n\x08\x45ndereco\x12\n\n\x02id\x18\x01 \x02(\x05\x12\x10\n\x08\x65ndereco\x18\x02 \x02(\t\x12\r\n\x05porta\x18\x03 \x02(\x05\"\x1b\n\x07\x43onecta\x12\x10\n\x08mensagem\x18\x01 \x02(\t\"\x10\n\x02Id\x12\n\n\x02id\x18\x01 \x02(\x05\x42\x08\n\x06\x65mRede')
 )
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
@@ -71,6 +71,37 @@ _ENDERECO = _descriptor.Descriptor(
 )
 
 
+_CONECTA = _descriptor.Descriptor(
+  name='Conecta',
+  full_name='Conecta',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='mensagem', full_name='Conecta.mensagem', index=0,
+      number=1, type=9, cpp_type=9, label=2,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=77,
+  serialized_end=104,
+)
+
+
 _ID = _descriptor.Descriptor(
   name='Id',
   full_name='Id',
@@ -97,11 +128,12 @@ _ID = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=77,
-  serialized_end=93,
+  serialized_start=106,
+  serialized_end=122,
 )
 
 DESCRIPTOR.message_types_by_name['Endereco'] = _ENDERECO
+DESCRIPTOR.message_types_by_name['Conecta'] = _CONECTA
 DESCRIPTOR.message_types_by_name['Id'] = _ID
 
 Endereco = _reflection.GeneratedProtocolMessageType('Endereco', (_message.Message,), dict(
@@ -110,6 +142,13 @@ Endereco = _reflection.GeneratedProtocolMessageType('Endereco', (_message.Messag
   # @@protoc_insertion_point(class_scope:Endereco)
   ))
 _sym_db.RegisterMessage(Endereco)
+
+Conecta = _reflection.GeneratedProtocolMessageType('Conecta', (_message.Message,), dict(
+  DESCRIPTOR = _CONECTA,
+  __module__ = 'MemoryGame_pb2'
+  # @@protoc_insertion_point(class_scope:Conecta)
+  ))
+_sym_db.RegisterMessage(Conecta)
 
 Id = _reflection.GeneratedProtocolMessageType('Id', (_message.Message,), dict(
   DESCRIPTOR = _ID,

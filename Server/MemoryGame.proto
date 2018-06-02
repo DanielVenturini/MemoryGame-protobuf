@@ -9,7 +9,7 @@ message Endereco {
 }
 
 message Conecta {
-	required string mensagem = 2;
+	required string mensagem = 1;
 }
 
 message Id{
