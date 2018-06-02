@@ -10,6 +10,8 @@ class EnderecoOperacoes:
         self.portas = []    # lista com todas as portas jah usadas # random.randrange(10000, 65535)
         self.ids = []       # lista com todos os ids usados
 
+        self.partidaEsperando = None
+
     def getIp(self):
         return self.ip
 
@@ -22,10 +24,10 @@ class EnderecoOperacoes:
     # recupera um valor que nao esteja nesta lista
     # este valor deve ser um valor alto
     def getValue(self, lista):
-        valor = random.randrange(10000, 362880)     # sorteia um valor
+        valor = random.randrange(10000, 36288)      # sorteia um valor
 
         while(valor in lista):                      # enquanto for sorteando um valor que jah esta sendo usado
-            valor = random.randrange(10000, 362880) # continua sorteando
+            valor = random.randrange(10000, 36288)  # continua sorteando
 
         lista.append(valor)                         # guarda o valor na determinada lista
         return valor
@@ -38,3 +40,10 @@ class EnderecoOperacoes:
 
         # retorna o endereco jah em bytes
         return endereco.SerializeToString()
+
+    def fimJogo(self, id):
+        for i, idLista in enumerate(self.ids):
+            if(idLista == id):      # achei a posicao do id
+                # remove o id e a porta que aquele jogo estava
+                self.ids.pop(i)
+                self.portas.pop(i)

@@ -778,6 +778,15 @@ public final class MemoryGame {
      */
     com.google.protobuf.ByteString
         getMensagemBytes();
+
+    /**
+     * <code>required int32 id = 2;</code>
+     */
+    boolean hasId();
+    /**
+     * <code>required int32 id = 2;</code>
+     */
+    int getId();
   }
   /**
    * Protobuf type {@code Conecta}
@@ -792,6 +801,7 @@ public final class MemoryGame {
     }
     private Conecta() {
       mensagem_ = "";
+      id_ = 0;
     }
 
     @java.lang.Override
@@ -826,6 +836,11 @@ public final class MemoryGame {
               com.google.protobuf.ByteString bs = input.readBytes();
               bitField0_ |= 0x00000001;
               mensagem_ = bs;
+              break;
+            }
+            case 16: {
+              bitField0_ |= 0x00000002;
+              id_ = input.readInt32();
               break;
             }
           }
@@ -895,6 +910,21 @@ public final class MemoryGame {
       }
     }
 
+    public static final int ID_FIELD_NUMBER = 2;
+    private int id_;
+    /**
+     * <code>required int32 id = 2;</code>
+     */
+    public boolean hasId() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    /**
+     * <code>required int32 id = 2;</code>
+     */
+    public int getId() {
+      return id_;
+    }
+
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
@@ -902,6 +932,10 @@ public final class MemoryGame {
       if (isInitialized == 0) return false;
 
       if (!hasMensagem()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasId()) {
         memoizedIsInitialized = 0;
         return false;
       }
@@ -914,6 +948,9 @@ public final class MemoryGame {
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 1, mensagem_);
       }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeInt32(2, id_);
+      }
       unknownFields.writeTo(output);
     }
 
@@ -924,6 +961,10 @@ public final class MemoryGame {
       size = 0;
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, mensagem_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(2, id_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -947,6 +988,11 @@ public final class MemoryGame {
         result = result && getMensagem()
             .equals(other.getMensagem());
       }
+      result = result && (hasId() == other.hasId());
+      if (hasId()) {
+        result = result && (getId()
+            == other.getId());
+      }
       result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
@@ -961,6 +1007,10 @@ public final class MemoryGame {
       if (hasMensagem()) {
         hash = (37 * hash) + MENSAGEM_FIELD_NUMBER;
         hash = (53 * hash) + getMensagem().hashCode();
+      }
+      if (hasId()) {
+        hash = (37 * hash) + ID_FIELD_NUMBER;
+        hash = (53 * hash) + getId();
       }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
@@ -1082,6 +1132,8 @@ public final class MemoryGame {
         super.clear();
         mensagem_ = "";
         bitField0_ = (bitField0_ & ~0x00000001);
+        id_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000002);
         return this;
       }
 
@@ -1110,6 +1162,10 @@ public final class MemoryGame {
           to_bitField0_ |= 0x00000001;
         }
         result.mensagem_ = mensagem_;
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.id_ = id_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -1157,6 +1213,9 @@ public final class MemoryGame {
           mensagem_ = other.mensagem_;
           onChanged();
         }
+        if (other.hasId()) {
+          setId(other.getId());
+        }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
@@ -1164,6 +1223,9 @@ public final class MemoryGame {
 
       public final boolean isInitialized() {
         if (!hasMensagem()) {
+          return false;
+        }
+        if (!hasId()) {
           return false;
         }
         return true;
@@ -1263,6 +1325,38 @@ public final class MemoryGame {
         onChanged();
         return this;
       }
+
+      private int id_ ;
+      /**
+       * <code>required int32 id = 2;</code>
+       */
+      public boolean hasId() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      /**
+       * <code>required int32 id = 2;</code>
+       */
+      public int getId() {
+        return id_;
+      }
+      /**
+       * <code>required int32 id = 2;</code>
+       */
+      public Builder setId(int value) {
+        bitField0_ |= 0x00000002;
+        id_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required int32 id = 2;</code>
+       */
+      public Builder clearId() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        id_ = 0;
+        onChanged();
+        return this;
+      }
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
         return super.setUnknownFields(unknownFields);
@@ -1312,479 +1406,6 @@ public final class MemoryGame {
 
   }
 
-  public interface IdOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:Id)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <code>required int32 id = 1;</code>
-     */
-    boolean hasId();
-    /**
-     * <code>required int32 id = 1;</code>
-     */
-    int getId();
-  }
-  /**
-   * Protobuf type {@code Id}
-   */
-  public  static final class Id extends
-      com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:Id)
-      IdOrBuilder {
-    // Use Id.newBuilder() to construct.
-    private Id(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-      super(builder);
-    }
-    private Id() {
-      id_ = 0;
-    }
-
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return this.unknownFields;
-    }
-    private Id(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      this();
-      int mutable_bitField0_ = 0;
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
-            case 8: {
-              bitField0_ |= 0x00000001;
-              id_ = input.readInt32();
-              break;
-            }
-          }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e).setUnfinishedMessage(this);
-      } finally {
-        this.unknownFields = unknownFields.build();
-        makeExtensionsImmutable();
-      }
-    }
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return emRede.MemoryGame.internal_static_Id_descriptor;
-    }
-
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return emRede.MemoryGame.internal_static_Id_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              emRede.MemoryGame.Id.class, emRede.MemoryGame.Id.Builder.class);
-    }
-
-    private int bitField0_;
-    public static final int ID_FIELD_NUMBER = 1;
-    private int id_;
-    /**
-     * <code>required int32 id = 1;</code>
-     */
-    public boolean hasId() {
-      return ((bitField0_ & 0x00000001) == 0x00000001);
-    }
-    /**
-     * <code>required int32 id = 1;</code>
-     */
-    public int getId() {
-      return id_;
-    }
-
-    private byte memoizedIsInitialized = -1;
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      if (!hasId()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeInt32(1, id_);
-      }
-      unknownFields.writeTo(output);
-    }
-
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(1, id_);
-      }
-      size += unknownFields.getSerializedSize();
-      memoizedSize = size;
-      return size;
-    }
-
-    private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof emRede.MemoryGame.Id)) {
-        return super.equals(obj);
-      }
-      emRede.MemoryGame.Id other = (emRede.MemoryGame.Id) obj;
-
-      boolean result = true;
-      result = result && (hasId() == other.hasId());
-      if (hasId()) {
-        result = result && (getId()
-            == other.getId());
-      }
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptor().hashCode();
-      if (hasId()) {
-        hash = (37 * hash) + ID_FIELD_NUMBER;
-        hash = (53 * hash) + getId();
-      }
-      hash = (29 * hash) + unknownFields.hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static emRede.MemoryGame.Id parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static emRede.MemoryGame.Id parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static emRede.MemoryGame.Id parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static emRede.MemoryGame.Id parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static emRede.MemoryGame.Id parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static emRede.MemoryGame.Id parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static emRede.MemoryGame.Id parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-    public static emRede.MemoryGame.Id parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static emRede.MemoryGame.Id parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static emRede.MemoryGame.Id parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(emRede.MemoryGame.Id prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * Protobuf type {@code Id}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:Id)
-        emRede.MemoryGame.IdOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return emRede.MemoryGame.internal_static_Id_descriptor;
-      }
-
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return emRede.MemoryGame.internal_static_Id_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                emRede.MemoryGame.Id.class, emRede.MemoryGame.Id.Builder.class);
-      }
-
-      // Construct using emRede.MemoryGame.Id.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessageV3
-                .alwaysUseFieldBuilders) {
-        }
-      }
-      public Builder clear() {
-        super.clear();
-        id_ = 0;
-        bitField0_ = (bitField0_ & ~0x00000001);
-        return this;
-      }
-
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return emRede.MemoryGame.internal_static_Id_descriptor;
-      }
-
-      public emRede.MemoryGame.Id getDefaultInstanceForType() {
-        return emRede.MemoryGame.Id.getDefaultInstance();
-      }
-
-      public emRede.MemoryGame.Id build() {
-        emRede.MemoryGame.Id result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      public emRede.MemoryGame.Id buildPartial() {
-        emRede.MemoryGame.Id result = new emRede.MemoryGame.Id(this);
-        int from_bitField0_ = bitField0_;
-        int to_bitField0_ = 0;
-        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
-          to_bitField0_ |= 0x00000001;
-        }
-        result.id_ = id_;
-        result.bitField0_ = to_bitField0_;
-        onBuilt();
-        return result;
-      }
-
-      public Builder clone() {
-        return (Builder) super.clone();
-      }
-      public Builder setField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
-        return (Builder) super.setField(field, value);
-      }
-      public Builder clearField(
-          com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
-      }
-      public Builder clearOneof(
-          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
-      }
-      public Builder setRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
-      }
-      public Builder addRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
-        return (Builder) super.addRepeatedField(field, value);
-      }
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof emRede.MemoryGame.Id) {
-          return mergeFrom((emRede.MemoryGame.Id)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(emRede.MemoryGame.Id other) {
-        if (other == emRede.MemoryGame.Id.getDefaultInstance()) return this;
-        if (other.hasId()) {
-          setId(other.getId());
-        }
-        this.mergeUnknownFields(other.unknownFields);
-        onChanged();
-        return this;
-      }
-
-      public final boolean isInitialized() {
-        if (!hasId()) {
-          return false;
-        }
-        return true;
-      }
-
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        emRede.MemoryGame.Id parsedMessage = null;
-        try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (emRede.MemoryGame.Id) e.getUnfinishedMessage();
-          throw e.unwrapIOException();
-        } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
-          }
-        }
-        return this;
-      }
-      private int bitField0_;
-
-      private int id_ ;
-      /**
-       * <code>required int32 id = 1;</code>
-       */
-      public boolean hasId() {
-        return ((bitField0_ & 0x00000001) == 0x00000001);
-      }
-      /**
-       * <code>required int32 id = 1;</code>
-       */
-      public int getId() {
-        return id_;
-      }
-      /**
-       * <code>required int32 id = 1;</code>
-       */
-      public Builder setId(int value) {
-        bitField0_ |= 0x00000001;
-        id_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>required int32 id = 1;</code>
-       */
-      public Builder clearId() {
-        bitField0_ = (bitField0_ & ~0x00000001);
-        id_ = 0;
-        onChanged();
-        return this;
-      }
-      public final Builder setUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFields(unknownFields);
-      }
-
-      public final Builder mergeUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.mergeUnknownFields(unknownFields);
-      }
-
-
-      // @@protoc_insertion_point(builder_scope:Id)
-    }
-
-    // @@protoc_insertion_point(class_scope:Id)
-    private static final emRede.MemoryGame.Id DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new emRede.MemoryGame.Id();
-    }
-
-    public static emRede.MemoryGame.Id getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    @java.lang.Deprecated public static final com.google.protobuf.Parser<Id>
-        PARSER = new com.google.protobuf.AbstractParser<Id>() {
-      public Id parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-          return new Id(input, extensionRegistry);
-      }
-    };
-
-    public static com.google.protobuf.Parser<Id> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<Id> getParserForType() {
-      return PARSER;
-    }
-
-    public emRede.MemoryGame.Id getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_Endereco_descriptor;
   private static final 
@@ -1795,11 +1416,6 @@ public final class MemoryGame {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_Conecta_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_Id_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_Id_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -1810,9 +1426,9 @@ public final class MemoryGame {
   static {
     java.lang.String[] descriptorData = {
       "\n\020MemoryGame.proto\"7\n\010Endereco\022\n\n\002id\030\001 \002" +
-      "(\005\022\020\n\010endereco\030\002 \002(\t\022\r\n\005porta\030\003 \002(\005\"\033\n\007C" +
-      "onecta\022\020\n\010mensagem\030\001 \002(\t\"\020\n\002Id\022\n\n\002id\030\001 \002" +
-      "(\005B\010\n\006emRede"
+      "(\005\022\020\n\010endereco\030\002 \002(\t\022\r\n\005porta\030\003 \002(\005\"\'\n\007C" +
+      "onecta\022\020\n\010mensagem\030\001 \002(\t\022\n\n\002id\030\002 \002(\005B\010\n\006" +
+      "emRede"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -1837,13 +1453,7 @@ public final class MemoryGame {
     internal_static_Conecta_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_Conecta_descriptor,
-        new java.lang.String[] { "Mensagem", });
-    internal_static_Id_descriptor =
-      getDescriptor().getMessageTypes().get(2);
-    internal_static_Id_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_Id_descriptor,
-        new java.lang.String[] { "Id", });
+        new java.lang.String[] { "Mensagem", "Id", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

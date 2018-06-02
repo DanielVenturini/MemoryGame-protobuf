@@ -7,9 +7,8 @@ package emRede;
 
 
 import interfaces.Interface;
+import java.io.DataInputStream;
 import java.net.UnknownHostException;
-import java.io.ObjectOutputStream;
-import java.io.ObjectInputStream;
 import java.net.MulticastSocket;
 import java.net.DatagramPacket;
 import java.net.InetAddress;
@@ -35,8 +34,6 @@ public class Conexao {
 
     // objetos para trocar objetos e mensagens em rede
     MulticastSocket multcastSocket;
-    ObjectOutputStream objOut;
-    ObjectInputStream objIn;
     InetAddress group;
     Socket socket;
 
@@ -62,9 +59,6 @@ public class Conexao {
     private void conecta() throws UnknownHostException, IOException {
         System.out.println("Criando objetos de socket, leitura e escrita");
         socket = new Socket(InetAddress.getByName(ip), porta);
-
-        objOut = new ObjectOutputStream(socket.getOutputStream());
-        objIn = new ObjectInputStream(socket.getInputStream());
     }
 
     private void desconecta() throws IOException{
@@ -72,29 +66,30 @@ public class Conexao {
     }
 
     // neste endereco sera o MultcastSocket do jogo
-    private MemoryGame.Endereco recebeEndereco() throws IOException, ClassNotFoundException{
+    private void recebeEndereco() throws IOException, ClassNotFoundException{
 
         System.out.println("Enviado a string");
         // cria uma mensagem para o servidor
         MemoryGame.Conecta mensagem = criaMensagem(novoJogo);
+        System.out.println("Crou a mensagem, agora vamos enviar");
         // escreve o objeto para o servidor
-        objOut.writeObject(mensagem);
-        // aguarda a resposta
-        System.out.println("Recebendo a resposta");
+        mensagem.writeTo(socket.getOutputStream());
 
-        MemoryGame.Endereco endereco = (MemoryGame.Endereco) objIn.readObject();
+        DataInputStream recebe = new DataInputStream(socket.getInputStream());
+
+        // recebe o compromisso do servidor e faz o Parse
+
+        MemoryGameOuterClass.Endereco endereco = MemoryGameOuterClass.Endereco.parseFrom(recebe);
         System.out.println("Endereco: " + endereco.getEndereco() + ". Id: " + endereco.getId() + ". Porta: " + endereco.getPorta());
-
-        return endereco;
-    }
-
-    // cria um socket multcast neste endereco e se conecta
-    private void conectaMultcast(MemoryGame.Endereco endereco) throws UnknownHostException, IOException{
 
         ipGrupo = endereco.getEndereco();
         portaGrupo = endereco.getPorta();
-
         id = endereco.getId();
+    }
+
+    // cria um socket multcast neste endereco e se conecta
+    private void conectaMultcast() throws UnknownHostException, IOException{
+
         // cria, se ja nao houver, e conecta
         group = InetAddress.getByName(ipGrupo);
         multcastSocket = new MulticastSocket(portaGrupo);
@@ -121,7 +116,6 @@ public class Conexao {
                         multcastSocket.receive(messageIn);
                     } catch (Exception ex) {
                         System.out.println("Erro na thread ouve multcast");
-                        continue;
                     }
                 }
             }
@@ -132,8 +126,9 @@ public class Conexao {
 
         try{
             conecta();
-            MemoryGame.Endereco endereco = recebeEndereco();
-            conectaMultcast(endereco);
+            recebeEndereco();
+            desconecta();
+            conectaMultcast();
 
             // @NEW + nick quer dizer que o jogador esta pronto
             enviaNoGrupo("@USER " + inte.getNick());
@@ -141,7 +136,7 @@ public class Conexao {
             // comeca a ouvir as mensagens no grupo
             ouve();
         } catch (Exception ex) {
-            System.out.println("Erro ao inicializar o jogo");
+            System.out.println("Erro ao inicializar o jogo: " + ex);
             // -1 quer dizer que o jogo nao foi iniciado
             id = -1;
         }
@@ -165,6 +160,7 @@ public class Conexao {
 
         MemoryGame.Conecta.Builder builder = MemoryGame.Conecta.newBuilder();
         builder.setMensagem(msg);
+        builder.setId(-1);          // id simbolico
 
         MemoryGame.Conecta conecta = builder.build();
         return conecta;

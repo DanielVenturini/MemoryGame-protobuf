@@ -10,8 +10,5 @@ message Endereco {
 
 message Conecta {
 	required string mensagem = 1;
-}
-
-message Id{
-	required int32 id = 1;
+	required int32 id = 2;
 }

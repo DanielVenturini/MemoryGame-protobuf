@@ -14,6 +14,5 @@ public class teste {
     public static void main(String[] args){
         Conexao c = new Conexao("192.168.0.105", 5555, "Daniel", null);
         c.Jogar();
-
     }
 }

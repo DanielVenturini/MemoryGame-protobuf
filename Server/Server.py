@@ -1,13 +1,10 @@
 from MemoryGame_pb2 import Conecta
 from MemoryGame_pb2 import Endereco
-from MemoryGame_pb2 import Id
 
 from EnderecoOperacoes import EnderecoOperacoes
 from threading import Thread
 import Network
-import random
 import socket
-import pickle
 import sys
 
 # para facilitar, o id da partida sera a semente para o embaralhamento
@@ -19,24 +16,24 @@ class MemoryGameServicer():
         self.partidas = {}
         self.enderecos = EnderecoOperacoes()
 
-        # quando o primeiro conectar, ele ficara esperando o proximo jogador
-        # entao guarda o numero da partida
         self.partidaEsperando = None
         print("Tudo certo")
 
         self.noAr()
 
-    def Jogar(self, request, context):
+    def Jogar(self):
 
         if(self.partidaEsperando is not None):
             endereco = self.partidas[self.partidaEsperando] # recupera a  partida que falta um jogador
             self.partidaEsperando = None                    # marca dizendo que nao tem mais partida esperando
+            print("Partida fechada")
             return endereco                                 # retorna as informacoes da partida
 
-        endereco = Endereco(id)                             # recupera um endereco para esta nova partida
+        endereco = self.enderecos.criaEndereco()            # recupera um endereco para esta nova partida
         self.partidas[id] = endereco                        # guarda nas partidas ativas
         self.partidaEsperando = id                          # guarda o id para o proximo jogador que entrar
 
+        print("Retornando endereco")
         return endereco
 
     def Assistir(self, request, context):
@@ -64,17 +61,32 @@ class MemoryGameServicer():
     def processaRequisicao(self, conn):
         data = conn.recv(4096)              # recebe o dado
 
-        mensagem = pickle.loads(data)       # des-serializa o objeto, ou seja, transforma em uma classe do proto
         conecta = Conecta()
-        conecta.ParseFromString(mensagem)   # transforma em um objeto conecta
+        conecta.ParseFromString(data)       # transforma em um objeto conecta
 
-        print("Chegou o dado: " + conecta.getMensagem())
+        print("Chegou o dado: " + conecta.mensagem)
+        self.opcoes(conecta.mensagem, conn)
+
+        conn.shutdown(socket.SHUT_RDWR)     # avisando que vai fechar
+        conn.close()
+        print("Tudo enviado")
+
+    def opcoes(self, mensagem, conn):
+        # envia um novo endereco
+        if(mensagem.__eq__('@NOVO')):
+            print("Vai enviar um novo endereco para o cliente")
+            conn.send(self.Jogar())
+
+        elif(mensagem.__eq__('@FIMJOGO')):
+            pass
+        elif(mensagem.__eq__('@ASSISTIR')):
+            pass
 
     def noAr(self):
         self.criaSocket()
 
         while True:  # ever on
-            print("Wait for new connections on " + self.ip + ":" + str(self.porta))
+            print("Conectado em " + self.ip + ":" + str(self.porta))
             conn, addr = self.s.accept()
             args = []
             args.append(conn)
