@@ -1,6 +1,5 @@
 from concurrent import futures
 from Endereco import Endereco
-import MemoryGame_pb2_grpc
 import MemoryGame_pb2
 import Network
 import random
@@ -9,7 +8,7 @@ import time
 import sys
 
 # para facilitar, o id da partida sera a semente para o embaralhamento
-class MemoryGameServicer(MemoryGame_pb2_grpc.MemoryGameServicer):
+class MemoryGameServicer():
 
     def __init__(self, ip):
         # hash com o id da partida

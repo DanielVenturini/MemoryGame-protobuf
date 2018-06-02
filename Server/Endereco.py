@@ -5,9 +5,9 @@ import socket
 
 class Endereco:
 
-    def __init__(self, id, ip):
+    def __init__(self, id):
         self.id = id
-        self.ip = ip
+        self.ip = '224.1.2.3'
         self.porta = -1
 
         self.bind()

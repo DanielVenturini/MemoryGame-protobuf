@@ -5,23 +5,15 @@
  */
 package emRede;
 
-import java.util.concurrent.CountDownLatch;
-import io.grpc.StatusRuntimeException;
-import io.grpc.ManagedChannelBuilder;
-import java.util.concurrent.TimeUnit;
-import io.grpc.stub.StreamObserver;
-import com.google.protobuf.Message;
-import java.util.logging.Logger;
-import java.util.logging.Logger;
-import java.util.logging.Level;
-import io.grpc.ManagedChannel;
-import io.grpc.ManagedChannel;
+
+import java.net.UnknownHostException;
+import java.io.ObjectOutputStream;
+import java.io.ObjectInputStream;
+import java.net.MulticastSocket;
+import java.net.DatagramPacket;
+import java.net.InetAddress;
 import java.io.IOException;
-import java.util.Iterator;
-import java.util.Random;
-import java.util.Random;
-import io.grpc.Status;
-import java.util.List;
+import java.net.Socket;
 
 // Endereco.newBuilder();
 
@@ -31,32 +23,114 @@ import java.util.List;
  */
 public class Conexao {
 
-    private ManagedChannel channel;
-    private Random random = new Random();
+    private String ip;
+    private int porta;
+
+    private String ipGrupo;
+    private int portaGrupo;
+    private int id;     // id do jogo no servidor
+
+    // objetos para trocar objetos e mensagens em rede
+    MulticastSocket multcastSocket;
+    ObjectOutputStream objOut;
+    ObjectInputStream objIn;
+    InetAddress group;
+    Socket socket;
+
+    // protocolo de troca de mensagem com o servidor
+    String assistir = "@ASSISTIR";  // + id do jogo
+    String fimJogo = "@FIMJOGO";    // + id jogo
+    String novoJogo = "@NOVO";
 
     public Conexao(String ip, int porta){
-        this(ManagedChannelBuilder.forAddress(ip, porta).usePlaintext().build());
-
-        //criaToco(criaConexao(ip, porta));
-        
+        this.ip = ip;
+        this.porta = porta;
     }
 
-    public MemoryGameOuterClass.Endereco Jogar(){
+    private void conecta() throws UnknownHostException, IOException {
+        System.out.println("Criando objetos de socket, leitura e escrita");
+        socket = new Socket(InetAddress.getByName(ip), porta);
+
+        objOut = new ObjectOutputStream(socket.getOutputStream());
+        objIn = new ObjectInputStream(socket.getInputStream());
+    }
+
+    private void desconecta() throws IOException{
+        socket.close();
+    }
+
+    // neste endereco sera o MultcastSocket do jogo
+    private MemoryGameOuterClass.Endereco recebeEndereco() throws IOException, ClassNotFoundException{
         MemoryGameOuterClass.Endereco endereco;
 
-        //endereco = channel.
-        //Endereco.newBuilder();
+        // escreve o objeto para o servidor
+        objOut.writeObject(novoJogo);
+        // aguarda a resposta
+        endereco = (MemoryGameOuterClass.Endereco) objIn.readObject();
+
+        return endereco;
     }
 
-    public void criaToco(ManagedChannelBuilder<?> channelBuilder){
-        channel = channelBuilder.build();
-        blockingStub = RouteGuideGrpc.newBlockingStub(channel);
-        asyncStub = RouteGuideGrpc.newStub(channel);
+    // cria um socket multcast neste endereco e se conecta
+    private void conectaMultcast(MemoryGameOuterClass.Endereco endereco) throws UnknownHostException, IOException{
+
+        ipGrupo = endereco.getEndereco();
+        portaGrupo = endereco.getPorta();
+
+        id = endereco.getId();
+        // cria, se ja nao houver, e conecta
+        group = InetAddress.getByName(ipGrupo);
+        multcastSocket = new MulticastSocket(portaGrupo);
+        multcastSocket.joinGroup(group);
     }
 
-    // cria um canal para se conectar com o servidor
-    private ManagedChannelBuilder<?> criaConexao(String ip, int porta){
-        return ManagedChannelBuilder.forAddress(ip, porta).usePlaintext(true);
+    // pode ter um cliente esperando para comecar o jogo, entao envia uma mensagem avisando
+    private void enviaNoGrupo(String mensagem) throws IOException{
+
+        byte[] mensagemBytes = mensagem.getBytes();
+        DatagramPacket messageOut = new DatagramPacket(mensagemBytes, mensagemBytes.length, group, portaGrupo);
+	/* envia o datagrama como multicast */
+	multcastSocket.send(messageOut);
+    }
+
+    private void ouve(){
+        new Thread(){
+            @Override
+            public void run(){
+                while(true){
+                    try{
+                        byte[] buffer = new byte[1024];
+                        DatagramPacket messageIn = new DatagramPacket(buffer, buffer.length);
+                        multcastSocket.receive(messageIn);
+                    } catch (Exception ex) {
+                        System.out.println("Erro na thread ouve multcast");
+                        continue;
+                    }
+                }
+            }
+        }.start();
+    }
+
+    public int Jogar(){
+
+        try{
+            conecta();
+            MemoryGameOuterClass.Endereco endereco = recebeEndereco();
+            conectaMultcast(endereco);
+
+            // @NEW quer dizer que o jogador esta pronto
+            enviaNoGrupo("@NEW");
+
+            // comeca a ouvir as mensagens no grupo
+            ouve();
+        } catch (Exception ex) {
+            System.out.println("Erro ao inicializar o jogo");
+            // -1 quer dizer que o jogo nao foi iniciado
+            id = -1;
+        }
+
+        // semente do embaralhamento
+        return id;
     }
 
     public void greet(String name) {
@@ -74,21 +148,5 @@ public class Conexao {
 
         // o que o servidor responder vai ser guardado aqui
         MemoryGameOuterClass.Endereco response;
-
-
-      /*try {
-        response = blockingStub.sayHello(request);
-      } catch (StatusRuntimeException e) {
-        logger.log(Level.WARNING, "RPC failed: {0}", e.getStatus());
-        return;
-      }
-      logger.info("Greeting: " + response.getMessage());
-      try {
-        response = blockingStub.sayHelloAgain(request);
-      } catch (StatusRuntimeException e) {
-        logger.log(Level.WARNING, "RPC failed: {0}", e.getStatus());
-        return;
-      }
-      logger.info("Greeting: " + response.getMessage());*/
     }
 }

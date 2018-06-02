@@ -1,25 +1,6 @@
 syntax="proto2";
 option java_package = "emRede";
 
-service MemoryGame {
-
-	// O servidor ira retornar um endereco
-	// este endereco eh o endereco de multcastSocket onde os clientes de um grupo estao jogando
-
-	// quando for iniciar um jogo
-	// o id nao eh usado para nada
-	// mas o protobuf requer algo como parametro
-	rpc Jogar(Id) returns (Endereco) {}
-
-	// envia o id que quer assistir e recebe o endereco
-	rpc Assistir(Id) returns (Endereco) {}
-
-	// quando acabar o jogo, avisa o servidor
-	// o Id retorno nao servira para nada
-	rpc FimJogo(Id) returns (Id) {}
-
-}
-
 // quando um cliente solicitar assistir
 message Endereco {
 	required int32 id = 1;
