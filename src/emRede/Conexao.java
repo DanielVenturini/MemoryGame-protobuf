@@ -6,6 +6,7 @@
 package emRede;
 
 
+import interfaces.Interface;
 import java.net.UnknownHostException;
 import java.io.ObjectOutputStream;
 import java.io.ObjectInputStream;
@@ -14,6 +15,7 @@ import java.net.DatagramPacket;
 import java.net.InetAddress;
 import java.io.IOException;
 import java.net.Socket;
+import java.util.HashMap;
 
 // Endereco.newBuilder();
 
@@ -23,6 +25,7 @@ import java.net.Socket;
  */
 public class Conexao {
 
+    private String nick;
     private String ip;
     private int porta;
 
@@ -42,9 +45,18 @@ public class Conexao {
     String fimJogo = "@FIMJOGO";    // + id jogo
     String novoJogo = "@NOVO";
 
-    public Conexao(String ip, int porta){
-        this.ip = ip;
+    // troca de mensagem entre os clientes
+    String revela = "@REVELA";
+    String comeca = "@NEW";
+
+    Interface inte;
+
+    private static HashMap<javax.swing.JButton, String> botoesNomes = new HashMap<>();
+
+    public Conexao(String ip, int porta, String nick, Interface inte){
         this.porta = porta;
+        this.inte = inte;
+        this.ip = ip;
     }
 
     private void conecta() throws UnknownHostException, IOException {
@@ -60,19 +72,22 @@ public class Conexao {
     }
 
     // neste endereco sera o MultcastSocket do jogo
-    private MemoryGameOuterClass.Endereco recebeEndereco() throws IOException, ClassNotFoundException{
-        MemoryGameOuterClass.Endereco endereco;
+    private MemoryGame.Endereco recebeEndereco() throws IOException, ClassNotFoundException{
+        MemoryGame.Endereco endereco;
 
+        System.out.println("Enviado a string");
         // escreve o objeto para o servidor
         objOut.writeObject(novoJogo);
         // aguarda a resposta
-        endereco = (MemoryGameOuterClass.Endereco) objIn.readObject();
+        System.out.println("Recebendo a resposta");
+        endereco = (MemoryGame.Endereco) objIn.readObject();
+        System.out.println("Receeu");
 
         return endereco;
     }
 
     // cria um socket multcast neste endereco e se conecta
-    private void conectaMultcast(MemoryGameOuterClass.Endereco endereco) throws UnknownHostException, IOException{
+    private void conectaMultcast(MemoryGame.Endereco endereco) throws UnknownHostException, IOException{
 
         ipGrupo = endereco.getEndereco();
         portaGrupo = endereco.getPorta();
@@ -85,7 +100,7 @@ public class Conexao {
     }
 
     // pode ter um cliente esperando para comecar o jogo, entao envia uma mensagem avisando
-    private void enviaNoGrupo(String mensagem) throws IOException{
+    public void enviaNoGrupo(String mensagem) throws IOException{
 
         byte[] mensagemBytes = mensagem.getBytes();
         DatagramPacket messageOut = new DatagramPacket(mensagemBytes, mensagemBytes.length, group, portaGrupo);
@@ -115,11 +130,11 @@ public class Conexao {
 
         try{
             conecta();
-            MemoryGameOuterClass.Endereco endereco = recebeEndereco();
+            MemoryGame.Endereco endereco = recebeEndereco();
             conectaMultcast(endereco);
 
-            // @NEW quer dizer que o jogador esta pronto
-            enviaNoGrupo("@NEW");
+            // @NEW + nick quer dizer que o jogador esta pronto
+            enviaNoGrupo("@USER " + inte.getNick());
 
             // comeca a ouvir as mensagens no grupo
             ouve();
@@ -137,16 +152,16 @@ public class Conexao {
         System.out.println("Will try to greet " + name + " ...");
 
         // cria um builder
-        MemoryGameOuterClass.Endereco.Builder builder = MemoryGameOuterClass.Endereco.newBuilder();
+        MemoryGame.Endereco.Builder builder = MemoryGame.Endereco.newBuilder();
         // adicionando o que tiver de adicionar
         builder.setId(-1);
         builder.setEndereco("4499737489");
         builder.setPorta(2+1);
 
         // constroi seja lah o que ele estah construindo
-        MemoryGameOuterClass.Endereco contato = builder.build();
+        MemoryGame.Endereco contato = builder.build();
 
         // o que o servidor responder vai ser guardado aqui
-        MemoryGameOuterClass.Endereco response;
+        MemoryGame.Endereco response;
     }
 }

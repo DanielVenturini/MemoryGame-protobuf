@@ -1,10 +1,10 @@
-from concurrent import futures
 from Endereco import Endereco
-import MemoryGame_pb2
+from threading import Thread
+#import MemoryGame_pb2
 import Network
 import random
-import grpc
-import time
+import socket
+import pickle
 import sys
 
 # para facilitar, o id da partida sera a semente para o embaralhamento
@@ -14,12 +14,14 @@ class MemoryGameServicer():
         # hash com o id da partida
         self.ip = ip
         self.partidas = {}
-        self.partidas[0] = Endereco(-1, ip)
+        self.partidas[0] = Endereco(-1)
 
         # quando o primeiro conectar, ele ficara esperando o proximo jogador
         # entao guarda o numero da partida
         self.partidaEsperando = None
         print("Tudo certo")
+
+        self.noAr()
 
     def Jogar(self, request, context):
 
@@ -32,7 +34,7 @@ class MemoryGameServicer():
         while(id in list(self.partidas.keys())):            # para pegar um id que nao esteja sendo usado
             id = random.randrange(362880)
 
-        endereco = Endereco(id, self.ip)                    # recupera um endereco para esta nova partida
+        endereco = Endereco(id)                             # recupera um endereco para esta nova partida
         self.partidas[id] = endereco                        # guarda nas partidas ativas
         self.partidaEsperando = id                          # guarda o id para o proximo jogador que entrar
 
@@ -50,25 +52,50 @@ class MemoryGameServicer():
         except KeyError:                                    # provavelmente nao dara este erro
             pass
 
+    def criaSocket(self):
+        self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        try:
+            self.s.bind((self.ip, 5555))
+        except socket.error:
+            self.s.bind((self.ip, 0))
 
-def server():
-    ip, broadcast = Network.getIP_BC()
+        self.porta = self.s.getsockname()[1]
+        self.s.listen(5)
 
-    if(ip is None and sys.argv.__len__() != 2):
-        print("Nao foi possivel obter o endereco IP. Use 'python3 Agenda_server.py IP")
-        return
+    def processaRequisicao(self, conn):
+        data = conn.recv(4096)          # recebe o dado
 
-    server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
-    MemoryGame_pb2_grpc.add_MemoryGameServicer_to_server(MemoryGameServicer(ip), server)
-    #server.add_insecure_port('[::]:50051')
-    server.add_insecure_port(ip + ':50051')
-    server.start()
-    print("Server inicializado em " + ip + ":50051")
+        opcao = pickle.loads(data)     # des-serializa o objeto, ou seja, transforma em uma string
 
-    try:
-        while True:
-            time.sleep(86400)
-    except KeyboardInterrupt:
-        server.stop(0)
+        try:                            # tenta transformar em uma string
+            opcao = str(opcao)
+        except ValueError:              # se der excecao, nao faz mais nada
+            return None
 
-server()
+        print("Chegou o dado: " + opcao)
+
+
+    def noAr(self):
+        self.criaSocket()
+        while True:  # ever on
+            print("Wait for new connections on " + self.ip + ":" + str(self.porta))
+            conn, addr = self.s.accept()
+            args = []
+            args.append(conn)
+            thread = Thread(target=self.processaRequisicao, args=(args))
+            thread.start()  # execute thread
+
+            continue
+# -------------------------------------------------------------------------------------
+
+ip, bdcst = Network.getIP_BC()
+
+# no caso de ser no windows
+if (ip is None or ip.__eq__("'ifconfig'")):
+    if(sys.argv.__len__() != 2):
+        print("Impossivel obter o endereco IP. Use 'python3 Server.py IP")
+    else:
+        MemoryGameServicer(sys.argv[1])
+else:
+    print("Valor do ip: " + ip)
+    MemoryGameServicer(ip)

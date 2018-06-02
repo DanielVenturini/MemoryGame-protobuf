@@ -14,6 +14,7 @@ import javax.swing.BorderFactory;
  */
 public class Inicial extends javax.swing.JFrame {
 
+    private boolean assistir = true;
     /**
      * Creates new form Inicial
      */
@@ -34,6 +35,8 @@ public class Inicial extends javax.swing.JFrame {
         nickText = new javax.swing.JTextField();
         botaoJogar = new javax.swing.JButton();
         botaoAssistir = new javax.swing.JButton();
+        textID = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -57,6 +60,21 @@ public class Inicial extends javax.swing.JFrame {
 
         botaoAssistir.setText("Assistir");
         botaoAssistir.setPreferredSize(new java.awt.Dimension(70, 70));
+        botaoAssistir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoAssistirActionPerformed(evt);
+            }
+        });
+
+        textID.setText("ID do jogo");
+        textID.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textIDActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel1.setText("OU");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -65,25 +83,35 @@ public class Inicial extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(96, 96, 96)
-                        .addComponent(nickText, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(148, 148, 148)
+                        .addComponent(botaoAssistir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(96, 96, 96)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(botaoAssistir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(botaoJogar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(textID, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(nickText, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(142, 142, 142)
+                        .addComponent(botaoJogar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(166, 166, 166)
+                        .addComponent(jLabel1)))
                 .addContainerGap(122, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(112, 112, 112)
+                .addGap(63, 63, 63)
                 .addComponent(nickText, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(botaoJogar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
+                .addComponent(jLabel1)
+                .addGap(23, 23, 23)
+                .addComponent(textID, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(7, 7, 7)
                 .addComponent(botaoAssistir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(65, Short.MAX_VALUE))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -110,26 +138,44 @@ public class Inicial extends javax.swing.JFrame {
 
         // tira a borda vermelha, se tiver
         nickText.setBorder(null);
-        // passar o nick para a outra tela
-        String[] params = new String[1];
-        params[0] = nick;
-        setVisible(false);
-
-        new Thread(){
-            @Override
-            public void run(){
-                Interface in = new Interface(); // cria a tela interface
-                in.dispose();                   // sobrepoe esta com a interface
-                in.main(params);                // chama a main da interface
-            }
-        }.start();
-
     }//GEN-LAST:event_botaoJogarActionPerformed
 
     private void nickTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nickTextActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_nickTextActionPerformed
 
+    private void botaoAssistirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAssistirActionPerformed
+        // TODO add your handling code here:
+        String id = textID.getText();
+        if(id.equals("")){
+            return;
+        }
+
+        assistir = true;
+        inicializaMain("", assistir, id);
+    }//GEN-LAST:event_botaoAssistirActionPerformed
+
+    private void textIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textIDActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_textIDActionPerformed
+
+    private void inicializaMain(String nick, boolean assistir, String id){
+        // passar o nick para a outra tela
+        String[] params = new String[3];
+        params[0] = nick;
+        params[1] = assistir?"ASSISTINDO":"NAOASSISTINDO";
+        params[2] = id;
+        setVisible(false);
+
+        new Thread(){
+            @Override
+            public void run(){
+                Interface in = new Interface(assistir); // cria a tela interface
+                in.dispose();                           // sobrepoe esta com a interface
+                in.main(params);                        // chama a main da interface
+            }
+        }.start();
+    }
     /**
      * @param args the command line arguments
      */
@@ -168,7 +214,9 @@ public class Inicial extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botaoAssistir;
     private javax.swing.JButton botaoJogar;
+    private static javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField nickText;
+    private javax.swing.JTextField textID;
     // End of variables declaration//GEN-END:variables
 }

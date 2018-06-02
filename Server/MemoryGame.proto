@@ -8,6 +8,10 @@ message Endereco {
 	required int32 porta = 3;
 }
 
+message Conecta {
+	required string mensagem = 2;
+}
+
 message Id{
 	required int32 id = 1;
 }

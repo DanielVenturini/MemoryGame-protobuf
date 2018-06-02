@@ -1,6 +1,7 @@
 # -*- coding: ISO-8859-1 -*-
 
 import random
+import struct
 import socket
 
 class Endereco:
@@ -8,17 +9,9 @@ class Endereco:
     def __init__(self, id):
         self.id = id
         self.ip = '224.1.2.3'
-        self.porta = -1
-
-        self.bind()
-
-    # esta funcao ira tentar conectar a algum endereco
-    def bind(self):
-        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-
-        s.bind((self.ip, 0))            # conecta somente para recuperar um endereco disponivel
-        self.porta = s.getsockname()[1] # pega o endereco
-        s.close()                       # fecha o socket
+        # com probabilidade de 1 em 55535 obter o mesmo endereco
+        # mas vale arriscar
+        self.porta = random.randrange(10000, 65535)
 
     def getId(self):
         return self.id
