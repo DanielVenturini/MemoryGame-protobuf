@@ -73,15 +73,17 @@ public class Conexao {
 
     // neste endereco sera o MultcastSocket do jogo
     private MemoryGame.Endereco recebeEndereco() throws IOException, ClassNotFoundException{
-        MemoryGame.Endereco endereco;
 
         System.out.println("Enviado a string");
+        // cria uma mensagem para o servidor
+        MemoryGame.Conecta mensagem = criaMensagem(novoJogo);
         // escreve o objeto para o servidor
-        objOut.writeObject(novoJogo);
+        objOut.writeObject(mensagem);
         // aguarda a resposta
         System.out.println("Recebendo a resposta");
-        endereco = (MemoryGame.Endereco) objIn.readObject();
-        System.out.println("Receeu");
+
+        MemoryGame.Endereco endereco = (MemoryGame.Endereco) objIn.readObject();
+        System.out.println("Endereco: " + endereco.getEndereco() + ". Id: " + endereco.getId() + ". Porta: " + endereco.getPorta());
 
         return endereco;
     }
@@ -148,20 +150,23 @@ public class Conexao {
         return id;
     }
 
-    public void greet(String name) {
-        System.out.println("Will try to greet " + name + " ...");
+    public MemoryGame.Conecta criaMensagem(String msg) {
+        System.out.println("Will try to greet " + msg + " ...");
 
-        // cria um builder
-        MemoryGame.Endereco.Builder builder = MemoryGame.Endereco.newBuilder();
-        // adicionando o que tiver de adicionar
-        builder.setId(-1);
-        builder.setEndereco("4499737489");
-        builder.setPorta(2+1);
+//        // cria um builder
+//        MemoryGame.Endereco.Builder builder = MemoryGame.Endereco.newBuilder();
+//        // adicionando o que tiver de adicionar
+//        builder.setId(-1);
+//        builder.setEndereco("4499737489");
+//        builder.setPorta(2+1);
+//
+//        // constroi seja lah o que ele estah construindo
+//        MemoryGame.Endereco contato = builder.build();
 
-        // constroi seja lah o que ele estah construindo
-        MemoryGame.Endereco contato = builder.build();
+        MemoryGame.Conecta.Builder builder = MemoryGame.Conecta.newBuilder();
+        builder.setMensagem(msg);
 
-        // o que o servidor responder vai ser guardado aqui
-        MemoryGame.Endereco response;
+        MemoryGame.Conecta conecta = builder.build();
+        return conecta;
     }
 }

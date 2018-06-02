@@ -1,6 +1,9 @@
-from Endereco import Endereco
+from MemoryGame_pb2 import Conecta
+from MemoryGame_pb2 import Endereco
+from MemoryGame_pb2 import Id
+
+from EnderecoOperacoes import EnderecoOperacoes
 from threading import Thread
-#import MemoryGame_pb2
 import Network
 import random
 import socket
@@ -14,7 +17,7 @@ class MemoryGameServicer():
         # hash com o id da partida
         self.ip = ip
         self.partidas = {}
-        self.partidas[0] = Endereco(-1)
+        self.enderecos = EnderecoOperacoes()
 
         # quando o primeiro conectar, ele ficara esperando o proximo jogador
         # entao guarda o numero da partida
@@ -29,10 +32,6 @@ class MemoryGameServicer():
             endereco = self.partidas[self.partidaEsperando] # recupera a  partida que falta um jogador
             self.partidaEsperando = None                    # marca dizendo que nao tem mais partida esperando
             return endereco                                 # retorna as informacoes da partida
-
-        id = 0                                              # realmente ira comecar uma nova partida
-        while(id in list(self.partidas.keys())):            # para pegar um id que nao esteja sendo usado
-            id = random.randrange(362880)
 
         endereco = Endereco(id)                             # recupera um endereco para esta nova partida
         self.partidas[id] = endereco                        # guarda nas partidas ativas
@@ -63,20 +62,17 @@ class MemoryGameServicer():
         self.s.listen(5)
 
     def processaRequisicao(self, conn):
-        data = conn.recv(4096)          # recebe o dado
+        data = conn.recv(4096)              # recebe o dado
 
-        opcao = pickle.loads(data)     # des-serializa o objeto, ou seja, transforma em uma string
+        mensagem = pickle.loads(data)       # des-serializa o objeto, ou seja, transforma em uma classe do proto
+        conecta = Conecta()
+        conecta.ParseFromString(mensagem)   # transforma em um objeto conecta
 
-        try:                            # tenta transformar em uma string
-            opcao = str(opcao)
-        except ValueError:              # se der excecao, nao faz mais nada
-            return None
-
-        print("Chegou o dado: " + opcao)
-
+        print("Chegou o dado: " + conecta.getMensagem())
 
     def noAr(self):
         self.criaSocket()
+
         while True:  # ever on
             print("Wait for new connections on " + self.ip + ":" + str(self.porta))
             conn, addr = self.s.accept()
