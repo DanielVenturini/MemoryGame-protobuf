@@ -5,6 +5,7 @@
  */
 package interfaces;
 
+import emRede.Conexao;
 import java.awt.Color;
 import javax.swing.BorderFactory;
 
@@ -37,6 +38,8 @@ public class Inicial extends javax.swing.JFrame {
         botaoAssistir = new javax.swing.JButton();
         textID = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
+        textIp = new javax.swing.JTextField();
+        textPorta = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -76,6 +79,10 @@ public class Inicial extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel1.setText("OU");
 
+        textIp.setText("Digite o IP");
+
+        textPorta.setText("Digite a porta");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -89,19 +96,27 @@ public class Inicial extends javax.swing.JFrame {
                         .addGap(96, 96, 96)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(textID, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(nickText, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(nickText, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(textIp, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(textPorta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(142, 142, 142)
                         .addComponent(botaoJogar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(166, 166, 166)
                         .addComponent(jLabel1)))
-                .addContainerGap(122, Short.MAX_VALUE))
+                .addContainerGap(65, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(63, 63, 63)
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(textIp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(textPorta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(22, 22, 22)
                 .addComponent(nickText, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(botaoJogar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -128,16 +143,56 @@ public class Inicial extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private boolean validaDados(boolean verificaId){
+        String nick = nickText.getText();
+        String porta = textPorta.getText();
+        String ip = textIp.getText();
+
+        boolean retorno = true;
+
+        try{
+            if(nick.equals("")){
+                nickText.setBorder(BorderFactory.createLineBorder(Color.RED, 1));
+                retorno = false;
+            }
+
+            if(ip.equals("")){
+                textIp.setBorder(BorderFactory.createLineBorder(Color.RED, 1));
+                retorno = false;
+            }
+
+            if(porta.equals("")){
+                textPorta.setBorder(BorderFactory.createLineBorder(Color.RED, 1));
+                retorno = false;
+            }
+
+            // se for para jogar, nao precisa verificar o id
+            if(verificaId){
+                retorno = !textID.getText().equals("");
+                // se nao der o parse, eh porque nao tem valores numericos aqui
+                Integer.parseInt(textID.getText());
+                // entao vai lancar um excessao
+            }
+
+            // mesma logica
+            Integer.parseInt(porta);
+            
+        } catch (Exception ex) {
+            System.out.println("Algum dado foi digitado errado: " + ex);
+            retorno = false;
+        }
+
+        return retorno;
+    }
     private void botaoJogarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoJogarActionPerformed
         // TODO add your handling code here:
-        String nick = nickText.getText();
-        if(nick.equals("")){
-            nickText.setBorder(BorderFactory.createLineBorder(Color.RED, 1));
+        // nao precisa verificar o IP aqui
+        if(!validaDados(false)){
             return;
         }
 
         // tira a borda vermelha, se tiver
-        nickText.setBorder(null);
+        inicializaMain(nickText.getText(), false, "-1");// este id nao sera usado
     }//GEN-LAST:event_botaoJogarActionPerformed
 
     private void nickTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nickTextActionPerformed
@@ -147,7 +202,8 @@ public class Inicial extends javax.swing.JFrame {
     private void botaoAssistirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAssistirActionPerformed
         // TODO add your handling code here:
         String id = textID.getText();
-        if(id.equals("")){
+        // nao precisa verificar o IP aqui
+        if(!validaDados(true)){
             return;
         }
 
@@ -161,21 +217,25 @@ public class Inicial extends javax.swing.JFrame {
 
     private void inicializaMain(String nick, boolean assistir, String id){
         // passar o nick para a outra tela
-        String[] params = new String[3];
+        String[] params = new String[5];
         params[0] = nick;
         params[1] = assistir?"ASSISTINDO":"NAOASSISTINDO";
         params[2] = id;
+        params[3] = textIp.getText();
+        params[4] = textPorta.getText();
         setVisible(false);
 
         new Thread(){
             @Override
             public void run(){
                 Interface in = new Interface(assistir); // cria a tela interface
+                in.setConexao(new Conexao(params[3], Integer.parseInt(params[4]), params[0], in));
                 in.dispose();                           // sobrepoe esta com a interface
                 in.main(params);                        // chama a main da interface
             }
         }.start();
     }
+
     /**
      * @param args the command line arguments
      */
@@ -218,5 +278,7 @@ public class Inicial extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField nickText;
     private javax.swing.JTextField textID;
+    private javax.swing.JTextField textIp;
+    private javax.swing.JTextField textPorta;
     // End of variables declaration//GEN-END:variables
 }

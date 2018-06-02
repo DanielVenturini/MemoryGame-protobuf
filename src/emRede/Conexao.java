@@ -66,11 +66,11 @@ public class Conexao {
     }
 
     // neste endereco sera o MultcastSocket do jogo
-    private void recebeEndereco() throws IOException, ClassNotFoundException{
+    private void recebeEndereco(String stringParaServidor) throws IOException, ClassNotFoundException{
 
         System.out.println("Enviado a string");
         // cria uma mensagem para o servidor
-        MemoryGame.Conecta mensagem = criaMensagem(novoJogo);
+        MemoryGame.Conecta mensagem = criaMensagem(stringParaServidor);
         System.out.println("Crou a mensagem, agora vamos enviar");
         // escreve o objeto para o servidor
         mensagem.writeTo(socket.getOutputStream());
@@ -122,11 +122,20 @@ public class Conexao {
         }.start();
     }
 
-    public int Jogar(){
+    public int Assistir(int id){
+        return returnIdEmbaralhamento(assistir + " " + Integer.toString(id));
+    }
 
+    public int Jogar(){
+        return returnIdEmbaralhamento(novoJogo);
+    }
+
+    // string complemento do comando, por exemplo, para assistir precisamos do @ASSISTIR + id
+    // entao o Id sera este complemento
+    public int returnIdEmbaralhamento(String stringParaServidor){
         try{
             conecta();
-            recebeEndereco();
+            recebeEndereco(stringParaServidor);
             desconecta();
             conectaMultcast();
 
@@ -144,7 +153,6 @@ public class Conexao {
         // semente do embaralhamento
         return id;
     }
-
     public MemoryGame.Conecta criaMensagem(String msg) {
         System.out.println("Will try to greet " + msg + " ...");
 

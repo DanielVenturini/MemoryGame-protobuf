@@ -26,6 +26,7 @@ public class Interface extends javax.swing.JFrame {
 
     private int i = 15;
     private static String nick;
+    // tambem eh o id da partida
     private static int seed = 19;
     // cada posicao destes vetores representa um botao que tera um icone
     private static String [] icons = new String[15];
@@ -47,7 +48,7 @@ public class Interface extends javax.swing.JFrame {
 
     private static FimJogo telaFimJogo = new FimJogo();
     private static boolean assistindo;
-    private Conexao conexao;
+    private static Conexao conexao;
 
     /**
      * Creates new form Interface
@@ -57,6 +58,9 @@ public class Interface extends javax.swing.JFrame {
         initComponents();
     }
 
+    public void setConexao(Conexao conexao){
+        this.conexao = conexao;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -868,6 +872,7 @@ public class Interface extends javax.swing.JFrame {
     }
 
     private static void inicializaBotoes(){
+        labelStatus.setText("Status: Inicializando botoes.");
         // embaralha para inserir os icones aleatoriamente
         Collections.shuffle(botoes, new Random(seed));
 
@@ -887,14 +892,28 @@ public class Interface extends javax.swing.JFrame {
     // esta funcao vai aguardar tantos segundos e depois vai esconder os icones
     private static void aguardaEEsconde(int milisegundos) {
         try{
-        Thread.sleep(milisegundos);
+            Thread.sleep(milisegundos);
 
-        JButton botao;
-        for(int i = 0; i < 30; i ++){
-            alteraIcone(botoes.get(i));
-        }
+            JButton botao;
+            for(int i = 0; i < 30; i ++){
+                alteraIcone(botoes.get(i));
+            }
         } catch (Exception ex) {
             System.out.println("Erro no aguardaEEsconde: " + ex);
+        }
+    }
+
+    private static void conectaServidor(String[] params){
+        labelStatus.setText("Status: Conectando com servidor.");
+
+        String ip = params[3];
+        int porta = Integer.parseInt(params[4]);
+
+        if(assistindo){
+            seed = conexao.Assistir(Integer.parseInt(params[2]));
+        } else {
+            // recupera a semente do embaralhamento
+            seed = conexao.Jogar();
         }
     }
 
@@ -944,12 +963,14 @@ public class Interface extends javax.swing.JFrame {
             labelJogador1.setText("JOGADOR 1");
         } finally {
             inicializaVetores();
+            conectaServidor(args);
             inicializaBotoes();
             aguardaEEsconde(3000);
         }
     }
 
     private static void inicializaVetores(){
+        labelStatus.setText("Status: Iniciando partida.");
         icons[0] = "amazon";
         icons[1] = "lg";
         icons[2] = "brasil";

@@ -57,6 +57,11 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="textID" min="-2" pref="168" max="-2" attributes="0"/>
                               <Component id="nickText" min="-2" pref="168" max="-2" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="textIp" min="-2" pref="131" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="textPorta" min="-2" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
@@ -68,14 +73,19 @@
                           <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace pref="122" max="32767" attributes="0"/>
+                  <EmptySpace pref="65" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="63" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="textIp" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="textPorta" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                   <Component id="nickText" min="-2" pref="27" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="botaoJogar" min="-2" max="-2" attributes="0"/>
@@ -139,6 +149,16 @@
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="10"/>
           </AuxValues>
+        </Component>
+        <Component class="javax.swing.JTextField" name="textIp">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Digite o IP"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="textPorta">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Digite a porta"/>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>
