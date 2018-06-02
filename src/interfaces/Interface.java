@@ -26,6 +26,8 @@ public class Interface extends javax.swing.JFrame {
     private static String [] icons = new String[15];
     private static LinkedList<javax.swing.JButton> botoes = new LinkedList<>();
     private static HashMap<javax.swing.JButton, IconeControle> botoesIcones = new HashMap<>();
+    // hash com os nomes dos botoes para enviar estes nomes na rede para saber qual botao foi clicado
+    private static HashMap<javax.swing.JButton, String> botoesNomes = new HashMap<>();
 
     // esses dois vao ser o controle dos botoes clicados
     // quando eu clicar em um, guardo na variavel primeiroClicado
@@ -921,36 +923,36 @@ public class Interface extends javax.swing.JFrame {
         icons[13] = "sun";
         icons[14] = "windows";
 
-        botoes.add(jButton1);
-        botoes.add(jButton2);
-        botoes.add(jButton3);
-        botoes.add(jButton4);
-        botoes.add(jButton5);
-        botoes.add(jButton6);
-        botoes.add(jButton7);
-        botoes.add(jButton8);
-        botoes.add(jButton9);
-        botoes.add(jButton10);
-        botoes.add(jButton11);
-        botoes.add(jButton12);
-        botoes.add(jButton13);
-        botoes.add(jButton14);
-        botoes.add(jButton15);
-        botoes.add(jButton16);
-        botoes.add(jButton17);
-        botoes.add(jButton18);
-        botoes.add(jButton19);
-        botoes.add(jButton20);
-        botoes.add(jButton21);
-        botoes.add(jButton22);
-        botoes.add(jButton23);
-        botoes.add(jButton24);
-        botoes.add(jButton25);
-        botoes.add(jButton26);
-        botoes.add(jButton27);
-        botoes.add(jButton28);
-        botoes.add(jButton29);
-        botoes.add(jButton30);
+        botoes.add(jButton1);  botoesNomes.put(jButton1, "jButton1");
+        botoes.add(jButton2);  botoesNomes.put(jButton2, "jButton2");
+        botoes.add(jButton3);  botoesNomes.put(jButton3, "jButton3");
+        botoes.add(jButton4);  botoesNomes.put(jButton4, "jButton4");
+        botoes.add(jButton5);  botoesNomes.put(jButton5, "jButton5");
+        botoes.add(jButton6);  botoesNomes.put(jButton6, "jButton6");
+        botoes.add(jButton7);  botoesNomes.put(jButton7, "jButton7");
+        botoes.add(jButton8);  botoesNomes.put(jButton8, "jButton8");
+        botoes.add(jButton9);  botoesNomes.put(jButton9, "jButton9");
+        botoes.add(jButton10); botoesNomes.put(jButton10, "jButton10");
+        botoes.add(jButton11); botoesNomes.put(jButton11, "jButton11");
+        botoes.add(jButton12); botoesNomes.put(jButton12, "jButton12");
+        botoes.add(jButton13); botoesNomes.put(jButton13, "jButton13");
+        botoes.add(jButton14); botoesNomes.put(jButton14, "jButton14");
+        botoes.add(jButton15); botoesNomes.put(jButton15, "jButton15");
+        botoes.add(jButton16); botoesNomes.put(jButton16, "jButton16");
+        botoes.add(jButton17); botoesNomes.put(jButton17, "jButton17");
+        botoes.add(jButton18); botoesNomes.put(jButton18, "jButton18");
+        botoes.add(jButton19); botoesNomes.put(jButton19, "jButton19");
+        botoes.add(jButton20); botoesNomes.put(jButton20, "jButton20");
+        botoes.add(jButton21); botoesNomes.put(jButton21, "jButton21");
+        botoes.add(jButton22); botoesNomes.put(jButton22, "jButton22");
+        botoes.add(jButton23); botoesNomes.put(jButton23, "jButton23");
+        botoes.add(jButton24); botoesNomes.put(jButton24, "jButton24");
+        botoes.add(jButton25); botoesNomes.put(jButton25, "jButton25");
+        botoes.add(jButton26); botoesNomes.put(jButton26, "jButton26");
+        botoes.add(jButton27); botoesNomes.put(jButton27, "jButton27");
+        botoes.add(jButton28); botoesNomes.put(jButton28, "jButton28");
+        botoes.add(jButton29); botoesNomes.put(jButton29, "jButton29");
+        botoes.add(jButton30); botoesNomes.put(jButton30, "jButton30");
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
