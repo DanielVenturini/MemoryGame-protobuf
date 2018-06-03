@@ -755,6 +755,16 @@ public class Interface extends javax.swing.JFrame {
         }
     }
 
+    public static void trocaVez(int num){
+        minhaVez = !minhaVez;
+
+        if(minhaVez){
+            labelStatus.setText("Status: Sua vez de jogar.");
+        } else {
+            labelStatus.setText("Status: Vez do adversario.");
+        }
+    }
+
     public boolean assistindo(){
         return assistindo;
     }
@@ -776,7 +786,7 @@ public class Interface extends javax.swing.JFrame {
     private static void escondeNovamente(JButton primeiro, JButton segundo){
         try{
             // se errou, troca a vez
-            minhaVez = !minhaVez;
+            trocaVez(-1);
             // aguarda quase um segundo e esconde o icone
             Thread.sleep(700);
 
@@ -854,7 +864,8 @@ public class Interface extends javax.swing.JFrame {
     public void revelaBotao(String botaoNome){
         for(JButton botao : botoesNomes.keySet()){
             if(botoesNomes.get(botao).equals(botaoNome)){
-                executa(botao);
+                executa(botao, true);
+                return;
             }
         }
 
@@ -862,16 +873,30 @@ public class Interface extends javax.swing.JFrame {
     }
 
     private static void executa(JButton button){
+        executa(button, false);
+    }
+
+    // este boolean fora quer dizer de onde o botao foi clicado
+    // se foi de fora, entao revela
+    private static void executa(JButton button, boolean fora){
+        // se o botao que foi clicado veio de fora
+        // nao precisa fazer as verificacoes
+        if(fora){
+            // faz nada
+
         // se jah foi resolvido ou acabaou o jogo ou esta somente assistindo ou nao eh minha vez
         // entao nao faz nada
-        if(botoesIcones.get(button).isResolvido() || quantidade == 30 || assistindo || !minhaVez){
+        }else if(botoesIcones.get(button).isResolvido() || quantidade == 30 || assistindo || !minhaVez){
             return;
         }
 
-        try{
-            conexao.enviaNoGrupo("@REVELA" + " " + botoesNomes.get(button) + "@");
-        } catch (Exception ex) {
-            System.out.println("Erro ao enviar o botao clicado: " + ex);
+        // so enviou no grupo se for eu que cliquei
+        if(minhaVez){
+            try{
+                conexao.enviaNoGrupo("@REVELA" + " " + botoesNomes.get(button) + "@");
+            } catch (Exception ex) {
+                System.out.println("Erro ao enviar o botao clicado: " + ex);
+            }
         }
 
         // primeiro revela o icone e atribui uma borda

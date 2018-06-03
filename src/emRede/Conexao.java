@@ -219,6 +219,7 @@ public class Conexao {
                             // entao eu comeco
                             inte.alteraSegundoUsuario(nomeUsuario);
                             inte.trocaVez();
+                            inte.trocaStatus("Aguardando adversario entrar no jogo.");
                             // envio o meu nick
                             enviaNoGrupo("@USERR " + inte.getNick() + "@");
                         } catch (Exception ex) {
