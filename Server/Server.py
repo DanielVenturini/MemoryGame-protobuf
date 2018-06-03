@@ -29,9 +29,8 @@ class MemoryGameServicer():
             print("Partida fechada")
             return endereco                                 # retorna as informacoes da partida
 
-        endereco = self.enderecos.criaEndereco()            # recupera um endereco para esta nova partida
-        self.partidas[id] = endereco                        # guarda nas partidas ativas
-        self.partidaEsperando = id                          # guarda o id para o proximo jogador que entrar
+        self.partidaEsperando, endereco = self.enderecos.criaEndereco() # recupera um endereco para esta nova partida
+        self.partidas[self.partidaEsperando] = endereco     # guarda nas partidas ativas
 
         print("Retornando endereco")
         return endereco

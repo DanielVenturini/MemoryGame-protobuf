@@ -79,7 +79,7 @@ public class Conexao {
 
         // recebe o compromisso do servidor e faz o Parse
 
-        MemoryGameOuterClass.Endereco endereco = MemoryGameOuterClass.Endereco.parseFrom(recebe);
+        MemoryGame.Endereco endereco = MemoryGame.Endereco.parseFrom(recebe);
         System.out.println("Endereco: " + endereco.getEndereco() + ". Id: " + endereco.getId() + ". Porta: " + endereco.getPorta());
 
         ipGrupo = endereco.getEndereco();

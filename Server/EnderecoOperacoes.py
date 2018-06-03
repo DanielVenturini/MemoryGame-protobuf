@@ -38,8 +38,9 @@ class EnderecoOperacoes:
         endereco.endereco = self.getIp()
         endereco.porta = self.getPorta()
 
+        id = endereco.id
         # retorna o endereco jah em bytes
-        return endereco.SerializeToString()
+        return id, endereco.SerializeToString()
 
     def fimJogo(self, id):
         for i, idLista in enumerate(self.ids):
