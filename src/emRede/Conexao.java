@@ -105,23 +105,6 @@ public class Conexao {
 	multcastSocket.send(messageOut);
     }
 
-    private void ouve(){
-        new Thread(){
-            @Override
-            public void run(){
-                while(true){
-                    try{
-                        byte[] buffer = new byte[1024];
-                        DatagramPacket messageIn = new DatagramPacket(buffer, buffer.length);
-                        multcastSocket.receive(messageIn);
-                    } catch (Exception ex) {
-                        System.out.println("Erro na thread ouve multcast");
-                    }
-                }
-            }
-        }.start();
-    }
-
     public int Assistir(int id){
         return returnIdEmbaralhamento(assistir + " " + Integer.toString(id));
     }
@@ -139,8 +122,12 @@ public class Conexao {
             desconecta();
             conectaMultcast();
 
-            // @NEW + nick quer dizer que o jogador esta pronto
-            enviaNoGrupo("@USER " + inte.getNick());
+            // se eu nao estiver assistindo
+            // diz que tem um jogador pronto
+            if(!inte.assistindo()){
+                // @NEW + nick quer dizer que o jogador esta pronto
+                enviaNoGrupo("@USER " + inte.getNick() + "@");
+            }
 
             // comeca a ouvir as mensagens no grupo
             ouve();
@@ -172,5 +159,88 @@ public class Conexao {
 
         MemoryGame.Conecta conecta = builder.build();
         return conecta;
+    }
+
+    // fica ouvindo
+    private void ouve(){
+        new Thread(){
+            @Override
+            public void run(){
+                while(true){
+                    try{
+                        byte[] buffer = new byte[1024];
+                        DatagramPacket messageIn = new DatagramPacket(buffer, buffer.length);
+                        multcastSocket.receive(messageIn);
+
+                        processaMensagem(new String(buffer));
+                    } catch (Exception ex) {
+                        System.out.println("Erro na thread ouve multcast");
+                    }
+                }
+            }
+
+            private String pegaDado(String mensagem, int indexEspaco){
+                int indexFimBotao = mensagem.indexOf("@", indexEspaco+1);
+                String botaoClicado = mensagem.substring(indexEspaco+1, indexFimBotao);
+                System.out.println("Foi clicado o botao: " + botaoClicado);
+
+                return botaoClicado;
+            }
+
+            private void processaMensagem(String mensagem){
+                int indexEspaco = mensagem.indexOf(" ");
+                String comando = mensagem.substring(0, indexEspaco);
+                System.out.println("Chegou o comando: " + comando);
+                String nomeUsuario;
+
+                switch(comando){
+
+                    case "@REVELA":
+                        // se foi eu mesmo que cliquei
+                        if(inte.getVez()){
+                            return;
+                        }
+
+                        String botaoClicado = pegaDado(mensagem, indexEspaco);
+                        System.out.println("Foi clicado o botao: " + botaoClicado);
+
+                        inte.revelaBotao(botaoClicado);
+                        break;
+
+                    case "@USER":
+                        nomeUsuario = pegaDado(mensagem, indexEspaco);
+                        // se for o meu pacote
+                        if(nomeUsuario.equals(inte.getNick())){
+                            return;
+                        }
+
+                        try{
+                            // nao sou eu
+                            // entao eu comeco
+                            inte.alteraSegundoUsuario(nomeUsuario);
+                            inte.trocaVez();
+                            // envio o meu nick
+                            enviaNoGrupo("@USERR " + inte.getNick() + "@");
+                        } catch (Exception ex) {
+                            System.out.println("Erro ao processar nome do segundo usuario na classe conexao: " + ex);
+                        }
+
+                        break;
+
+                    case "@USERR":
+                        nomeUsuario = pegaDado(mensagem, indexEspaco);
+                        // se for o meu pacote
+                        if(nomeUsuario.equals(inte.getNick())){
+                            return;
+                        }
+
+                        inte.alteraSegundoUsuario(nomeUsuario);
+                        inte.trocaStatus("Vez do adversario.");
+                    // se nao for um comando eh uma mensagem normal
+                    default:
+                        inte.areaBatePapo.append(mensagem + "\n");
+                }
+            }
+        }.start();
     }
 }

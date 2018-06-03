@@ -50,6 +50,9 @@ public class Interface extends javax.swing.JFrame {
     private static boolean assistindo;
     private static Conexao conexao;
 
+    // para controlar de quem eh a vez 
+    private static boolean minhaVez = false;
+
     /**
      * Creates new form Interface
      */
@@ -108,7 +111,7 @@ public class Interface extends javax.swing.JFrame {
         jButton31 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         areaBatePapo = new javax.swing.JTextArea();
-        jTextField2 = new javax.swing.JTextField();
+        textMensagem = new javax.swing.JTextField();
         labelPontos1 = new javax.swing.JLabel();
         labelPontos2 = new javax.swing.JLabel();
         labelStatus = new javax.swing.JLabel();
@@ -364,7 +367,7 @@ public class Interface extends javax.swing.JFrame {
         areaBatePapo.setRows(5);
         jScrollPane1.setViewportView(areaBatePapo);
 
-        jTextField2.setText("jTextField2");
+        textMensagem.setText("Digite uma mensagem");
 
         labelPontos1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         labelPontos1.setText("Pontos: 0");
@@ -460,10 +463,10 @@ public class Interface extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(labelPontos2)
                                 .addComponent(labelJogador2)))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jTextField2)
+                        .addComponent(textMensagem)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton31))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -540,7 +543,7 @@ public class Interface extends javax.swing.JFrame {
                                 .addComponent(jScrollPane1)
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jTextField2)
+                                    .addComponent(textMensagem)
                                     .addComponent(jButton31, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(29, 29, 29)
@@ -721,12 +724,12 @@ public class Interface extends javax.swing.JFrame {
     private void jButton31ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton31ActionPerformed
         try {
             // TODO add your handling code here:
-            String texto = areaBatePapo.getText();
+            String texto = textMensagem.getText();
             if(texto.equals("")){
                 return;
             }
 
-            conexao.enviaNoGrupo(texto);
+            conexao.enviaNoGrupo(nick + ":  " +texto);
         } catch (IOException ex) {
             System.out.println("Erro ao enviar mensagem ao grupo: " + ex);
             Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
@@ -742,14 +745,38 @@ public class Interface extends javax.swing.JFrame {
         return botoesIcones.get(primeiro).getIcone().getDescription() == botoesIcones.get(segundo).getIcone().getDescription();
     }
 
+    public void trocaVez(){
+        minhaVez = !minhaVez;
+
+        if(minhaVez){
+            labelStatus.setText("Status: Sua vez de jogar.");
+        } else {
+            labelStatus.setText("Status: Vez do adversario.");
+        }
+    }
+
+    public boolean assistindo(){
+        return assistindo;
+    }
+
     private static void marcaResolvido(JButton primeiro, JButton segundo){
         // marca estes como resolvido
         botoesIcones.get(primeiro).setResolvido();
         botoesIcones.get(segundo).setResolvido();
     }
 
+    public void alteraSegundoUsuario(String nome){
+        labelJogador2.setText(nome);
+    }
+
+    public boolean segundoJogador(){
+        return labelJogador2.getText().equals("Jogador 2");
+    }
+
     private static void escondeNovamente(JButton primeiro, JButton segundo){
         try{
+            // se errou, troca a vez
+            minhaVez = !minhaVez;
             // aguarda quase um segundo e esconde o icone
             Thread.sleep(700);
 
@@ -824,10 +851,27 @@ public class Interface extends javax.swing.JFrame {
         }.start();
     }
 
+    public void revelaBotao(String botaoNome){
+        for(JButton botao : botoesNomes.keySet()){
+            if(botoesNomes.get(botao).equals(botaoNome)){
+                executa(botao);
+            }
+        }
+
+        System.out.println("Erro, nenum botao encontrado: " + botaoNome);
+    }
+
     private static void executa(JButton button){
-        // se jah foi resolvido ou acabaou o jogo ou esta somente assistindo nao faz nada
-        if(botoesIcones.get(button).isResolvido() || quantidade == 30 || assistindo){
+        // se jah foi resolvido ou acabaou o jogo ou esta somente assistindo ou nao eh minha vez
+        // entao nao faz nada
+        if(botoesIcones.get(button).isResolvido() || quantidade == 30 || assistindo || !minhaVez){
             return;
+        }
+
+        try{
+            conexao.enviaNoGrupo("@REVELA" + " " + botoesNomes.get(button) + "@");
+        } catch (Exception ex) {
+            System.out.println("Erro ao enviar o botao clicado: " + ex);
         }
 
         // primeiro revela o icone e atribui uma borda
@@ -892,6 +936,7 @@ public class Interface extends javax.swing.JFrame {
     // esta funcao vai aguardar tantos segundos e depois vai esconder os icones
     private static void aguardaEEsconde(int milisegundos) {
         try{
+            labelStatus.setText("Status: Pronto para jogar.");
             Thread.sleep(milisegundos);
 
             JButton botao;
@@ -915,6 +960,14 @@ public class Interface extends javax.swing.JFrame {
             // recupera a semente do embaralhamento
             seed = conexao.Jogar();
         }
+    }
+
+    public void trocaStatus(String status){
+        labelStatus.setText("Status: " + status);
+    }
+
+    public boolean getVez(){
+        return minhaVez;
     }
 
     /**
@@ -1020,7 +1073,7 @@ public class Interface extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private static javax.swing.JTextArea areaBatePapo;
+    public static javax.swing.JTextArea areaBatePapo;
     private static javax.swing.JButton jButton1;
     private static javax.swing.JButton jButton10;
     private static javax.swing.JButton jButton11;
@@ -1056,11 +1109,11 @@ public class Interface extends javax.swing.JFrame {
     private static javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private static javax.swing.JTextField jTextField2;
     private static javax.swing.JLabel labelJogador1;
     private static javax.swing.JLabel labelJogador2;
     private static javax.swing.JLabel labelPontos1;
     private static javax.swing.JLabel labelPontos2;
     private static javax.swing.JLabel labelStatus;
+    private static javax.swing.JTextField textMensagem;
     // End of variables declaration//GEN-END:variables
 }
