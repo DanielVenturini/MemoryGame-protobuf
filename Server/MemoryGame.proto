@@ -1,13 +1,15 @@
 syntax="proto2";
 option java_package = "emRede";
 
-// quando um cliente solicitar assistir
+// quando um cliente solicitar novo jogo ou assistir
+// retorna um endereco
 message Endereco {
 	required int32 id = 1;
 	required string endereco = 2;
 	required int32 porta = 3;
 }
 
+// iniciar e finalizar o jogo o cliente usara esta mensagem
 message Conecta {
 	required string mensagem = 1;
 	required int32 id = 2;

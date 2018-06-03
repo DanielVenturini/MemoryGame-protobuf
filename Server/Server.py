@@ -35,16 +35,24 @@ class MemoryGameServicer():
         print("Retornando endereco")
         return endereco
 
-    def Assistir(self, request, context):
+    # tem que retornar tambem o historico das pecas
+    def Assistir(self, id):
         try:
-            return self.partidaEsperando[request[0]]        # se tiver uma partida com este id, retorna o endereco
+            print(self.partidas)
+            end = Endereco()
+            end.ParseFromString(self.partidas[int(id)])
+            return self.partidas[int(id)]                   # se tiver uma partida com este id, retorna o endereco
         except KeyError:
+            print("Me derrubaram aqui O, denovo")
             return None                                     # senao, retorna None
 
-    def FimJogo(self, request, context):
+    # simplesmente remove o id da hash
+    def FimJogo(self, id):
         try:
-            self.partidas.pop(request[0])                   # remove o endereco e o id da partida
-        except KeyError:                                    # provavelmente nao dara este erro
+            self.partidas.pop(int(id))                      # remove o endereco e o id da partida
+            print("Removida a partida: " + str(id))
+        except KeyError:
+            print("Me derrubaram aqui O")
             pass
 
     def criaSocket(self):
@@ -73,12 +81,17 @@ class MemoryGameServicer():
     def opcoes(self, mensagem, conn):
         # envia um novo endereco
         if(mensagem.__eq__('@NOVO')):
-            print("Vai enviar um novo endereco para o cliente")
             conn.send(self.Jogar())
 
-        elif(mensagem.__eq__('@FIMJOGO')):
-            pass
-        elif(mensagem.__eq__('@ASSISTIR')):
+        elif(mensagem.startswith('@FIMJOGO')):
+            # '@FIMJOGO IDJOGO'
+            id = mensagem.split(' ')[1]
+            self.FimJogo(id)
+            print("Finalizou um jogo")
+
+        elif(mensagem.startswith('@ASSISTIR')):
+            id = mensagem.split(' ')[1]
+            self.Assistir(id)
             pass
 
     def noAr(self):

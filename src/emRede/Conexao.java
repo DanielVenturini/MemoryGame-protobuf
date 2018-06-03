@@ -113,6 +113,22 @@ public class Conexao {
         return returnIdEmbaralhamento(novoJogo);
     }
 
+    public void FimJogo(){
+        try {
+            // so vai avisar o servidor o ultimo que jogou
+            if(!inte.getVez() || inte.assistindo()){
+                return;
+            }
+
+            conecta();
+            // '@FIMJOGO IDJOGO'
+            criaMensagem(fimJogo + " " + inte.getSeed()).writeTo(socket.getOutputStream());
+            desconecta();
+        } catch (Exception ex) {
+            System.out.println("Erro ao finalizar jogo: " + ex);
+        }
+    }
+
     // string complemento do comando, por exemplo, para assistir precisamos do @ASSISTIR + id
     // entao o Id sera este complemento
     public int returnIdEmbaralhamento(String stringParaServidor){
@@ -140,7 +156,12 @@ public class Conexao {
         // semente do embaralhamento
         return id;
     }
-    public MemoryGame.Conecta criaMensagem(String msg) {
+
+    public MemoryGame.Conecta criaMensagem(String msg){
+        return criaMensagem(msg, -1);
+    }
+
+    public MemoryGame.Conecta criaMensagem(String msg, int id) {
         System.out.println("Will try to greet " + msg + " ...");
 
 //        // cria um builder
@@ -155,7 +176,7 @@ public class Conexao {
 
         MemoryGame.Conecta.Builder builder = MemoryGame.Conecta.newBuilder();
         builder.setMensagem(msg);
-        builder.setId(-1);          // id simbolico
+        builder.setId(id);
 
         MemoryGame.Conecta conecta = builder.build();
         return conecta;
