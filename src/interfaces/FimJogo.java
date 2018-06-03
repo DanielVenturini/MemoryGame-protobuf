@@ -38,7 +38,7 @@ public class FimJogo extends javax.swing.JFrame {
         jPanel1.setPreferredSize(new java.awt.Dimension(100, 100));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel1.setText("Parabens! Voce ganho o jogo com:");
+        jLabel1.setText("ganhou o jogo com:");
 
         jButton1.setText("OK");
         jButton1.setPreferredSize(new java.awt.Dimension(60, 60));
@@ -56,7 +56,7 @@ public class FimJogo extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(12, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18))
             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -98,7 +98,8 @@ public class FimJogo extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    public void setPontos(String pontos){
+    public void setPontos(String vitorioso, String pontos){
+        jLabel1.setText(vitorioso + " ganhou o jogo com:");
         labelPontos.setText(pontos + " pontos.");
     }
     /**

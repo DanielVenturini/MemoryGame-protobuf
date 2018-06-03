@@ -809,26 +809,40 @@ public class Interface extends javax.swing.JFrame {
         }
     }
 
-    public static void telaFimDeJogo(String pontuacao){
-        String[] params = new String[1];
-        params[0] = pontuacao;
+    public static void telaFimDeJogo(){
+        String ponto1 = labelPontos1.getText().split(" ")[1];
+        String ponto2 = labelPontos2.getText().split(" ")[1];
+
+        String pontosFinal = Integer.parseInt(ponto1) > Integer.parseInt(ponto2) ? ponto1 : ponto2;
+        String ganhador = Integer.parseInt(ponto1) > Integer.parseInt(ponto2) ? labelJogador1.getText() : labelJogador2.getText();
+
+        //String[] params = new String[1];
+        //params[0] = pontosFinal;
 
         //telaFimJogo.main(params);
-        telaFimJogo.setPontos(pontuacao);
+        telaFimJogo.setPontos(ganhador, pontosFinal);
         telaFimJogo.setVisible(true);
+    }
+
+    private static void atualizaPontos(javax.swing.JLabel labelPontos){
+        int novosPontos = Integer.parseInt(labelPontos.getText().split(" ")[1])+2;
+
+        labelPontos.setText("Pontos: " + Integer.toString(novosPontos));
     }
 
     private static void pontuacao(){
         quantidade += 2;
 
-        // pega os pontos que ele tem e altera
-        String[] label = labelPontos1.getText().split(": ");
-        Integer pontos = Integer.parseInt(label[1])+2;
-        labelPontos1.setText("Pontos: " + pontos.toString());
+        // se for eu q fiz os pontos
+        if(minhaVez){
+            atualizaPontos(labelPontos1);
+        } else {
+            atualizaPontos(labelPontos2);
+        }
 
         // acabou o jogo
         if(quantidade == 30){
-            telaFimDeJogo(pontos.toString());
+            telaFimDeJogo();
         }
     }
     // como o icone so eh trocado quando volta do evento
@@ -961,10 +975,8 @@ public class Interface extends javax.swing.JFrame {
     // esta funcao vai aguardar tantos segundos e depois vai esconder os icones
     private static void aguardaEEsconde(int milisegundos) {
         try{
-            labelStatus.setText("Status: Pronto para jogar.");
             Thread.sleep(milisegundos);
 
-            JButton botao;
             for(int i = 0; i < 30; i ++){
                 alteraIcone(botoes.get(i));
             }

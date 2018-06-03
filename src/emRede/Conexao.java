@@ -202,7 +202,6 @@ public class Conexao {
                         }
 
                         String botaoClicado = pegaDado(mensagem, indexEspaco);
-                        System.out.println("Foi clicado o botao: " + botaoClicado);
 
                         inte.revelaBotao(botaoClicado);
                         break;
