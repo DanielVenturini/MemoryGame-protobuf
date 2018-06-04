@@ -78,7 +78,6 @@ public class Conexao {
         DataInputStream recebe = new DataInputStream(socket.getInputStream());
 
         // recebe o compromisso do servidor e faz o Parse
-
         MemoryGame.Endereco endereco = MemoryGame.Endereco.parseFrom(recebe);
         System.out.println("Endereco: " + endereco.getEndereco() + ". Id: " + endereco.getId() + ". Porta: " + endereco.getPorta());
 
@@ -114,6 +113,25 @@ public class Conexao {
     }
 
     public void FimJogo(){
+        envia(fimJogo + " " + inte.getSeed());
+    }
+
+    public void resolvido(String botao){
+        try {
+            // so vai avisar o servidor o ultimo que jogou
+            if(!inte.getVez() || inte.assistindo()){
+                return;
+            }
+
+            conecta();
+            criaResolvido(botao).writeTo(socket.getOutputStream());
+            desconecta();
+        } catch (Exception ex) {
+            System.out.println("Erro ao enviar: " + ex);
+        }
+    }
+
+    private void envia(String mensagem){
         try {
             // so vai avisar o servidor o ultimo que jogou
             if(!inte.getVez() || inte.assistindo()){
@@ -122,10 +140,10 @@ public class Conexao {
 
             conecta();
             // '@FIMJOGO IDJOGO'
-            criaMensagem(fimJogo + " " + inte.getSeed()).writeTo(socket.getOutputStream());
+            criaMensagem(mensagem).writeTo(socket.getOutputStream());
             desconecta();
         } catch (Exception ex) {
-            System.out.println("Erro ao finalizar jogo: " + ex);
+            System.out.println("Erro ao enviar: " + ex);
         }
     }
 
@@ -164,22 +182,23 @@ public class Conexao {
     public MemoryGame.Conecta criaMensagem(String msg, int id) {
         System.out.println("Will try to greet " + msg + " ...");
 
-//        // cria um builder
-//        MemoryGame.Endereco.Builder builder = MemoryGame.Endereco.newBuilder();
-//        // adicionando o que tiver de adicionar
-//        builder.setId(-1);
-//        builder.setEndereco("4499737489");
-//        builder.setPorta(2+1);
-//
-//        // constroi seja lah o que ele estah construindo
-//        MemoryGame.Endereco contato = builder.build();
-
         MemoryGame.Conecta.Builder builder = MemoryGame.Conecta.newBuilder();
         builder.setMensagem(msg);
         builder.setId(id);
 
         MemoryGame.Conecta conecta = builder.build();
         return conecta;
+    }
+
+    public MemoryGame.Resolvido criaResolvido(String botao) {
+        System.out.println("Will try to greet " + botao + " ...");
+
+        MemoryGame.Resolvido.Builder builder = MemoryGame.Resolvido.newBuilder();
+        builder.setBotao(botao);
+        builder.setIdJogo(inte.getSeed());
+
+        MemoryGame.Resolvido resolvido = builder.build();
+        return resolvido;
     }
 
     // fica ouvindo

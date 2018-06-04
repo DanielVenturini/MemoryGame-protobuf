@@ -1,4 +1,5 @@
 from MemoryGame_pb2 import Conecta
+from MemoryGame_pb2 import Resolvido
 from MemoryGame_pb2 import Endereco
 
 from EnderecoOperacoes import EnderecoOperacoes
@@ -14,6 +15,7 @@ class MemoryGameServicer():
         # hash com o id da partida
         self.ip = ip
         self.partidas = {}
+        self.resolvidos = {}
         self.enderecos = EnderecoOperacoes()
 
         self.partidaEsperando = None
@@ -26,19 +28,17 @@ class MemoryGameServicer():
         if(self.partidaEsperando is not None):
             endereco = self.partidas[self.partidaEsperando] # recupera a  partida que falta um jogador
             self.partidaEsperando = None                    # marca dizendo que nao tem mais partida esperando
-            print("Partida fechada")
             return endereco                                 # retorna as informacoes da partida
 
         self.partidaEsperando, endereco = self.enderecos.criaEndereco() # recupera um endereco para esta nova partida
         self.partidas[self.partidaEsperando] = endereco     # guarda nas partidas ativas
+        self.resolvidos[self.partidaEsperando] = []         # cria um array para guardar os objetos resolvidos
 
-        print("Retornando endereco")
         return endereco
 
     # tem que retornar tambem o historico das pecas
     def Assistir(self, id):
         try:
-            print(self.partidas)
             end = Endereco()
             end.ParseFromString(self.partidas[int(id)])
             return self.partidas[int(id)]                   # se tiver uma partida com este id, retorna o endereco
@@ -50,10 +50,19 @@ class MemoryGameServicer():
     def FimJogo(self, id):
         try:
             self.partidas.pop(int(id))                      # remove o endereco e o id da partida
-            print("Removida a partida: " + str(id))
         except KeyError:
             print("Me derrubaram aqui O")
-            pass
+
+    def Resolve(self, botao, id):
+        try:
+            print(self.resolvidos)
+            b = self.resolvidos[int(id)]
+            b.append(botao)
+            print(self.resolvidos)
+            print("Adicionado o botao com sucesso")
+            print(self.resolvidos)
+        except:
+            print("Me derrubaram aqui O, na ora de resolver")
 
     def criaSocket(self):
         self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -68,17 +77,28 @@ class MemoryGameServicer():
     def processaRequisicao(self, conn):
         data = conn.recv(4096)              # recebe o dado
 
-        conecta = Conecta()
-        conecta.ParseFromString(data)       # transforma em um objeto conecta
+        # tenta se for mensagem
+        try:
+            conecta = Conecta()
+            conecta.ParseFromString(data)       # transforma em um objeto conecta
 
-        print("Chegou o dado: " + conecta.mensagem)
-        self.opcoes(conecta.mensagem, conn)
+            if(conecta.mensagem.__eq__('')):    # se vir vazio eh um resolvido entao
+                raise ValueError
+
+            print("Chegou o Conecta: " + conecta.mensagem)
+            self.opcoesConecta(conecta.mensagem, conn)
+        except:                             # entao eh um resolvido
+            resolvido = Resolvido()
+            resolvido.ParseFromString(data) # transforma em um objeto resolvido
+
+            print("Chegou o Botao: " + resolvido.botao + " do jogo " + str(resolvido.idJogo))
+            self.Resolve(resolvido.botao, resolvido.idJogo)
 
         conn.shutdown(socket.SHUT_RDWR)     # avisando que vai fechar
         conn.close()
         print("Tudo enviado")
 
-    def opcoes(self, mensagem, conn):
+    def opcoesConecta(self, mensagem, conn):
         # envia um novo endereco
         if(mensagem.__eq__('@NOVO')):
             conn.send(self.Jogar())
@@ -87,12 +107,10 @@ class MemoryGameServicer():
             # '@FIMJOGO IDJOGO'
             id = mensagem.split(' ')[1]
             self.FimJogo(id)
-            print("Finalizou um jogo")
 
         elif(mensagem.startswith('@ASSISTIR')):
             id = mensagem.split(' ')[1]
-            self.Assistir(id)
-            pass
+            conn.send(self.Assistir(id))
 
     def noAr(self):
         self.criaSocket()
@@ -117,5 +135,4 @@ if (ip is None or ip.__eq__("'ifconfig'")):
     else:
         MemoryGameServicer(sys.argv[1])
 else:
-    print("Valor do ip: " + ip)
     MemoryGameServicer(ip)

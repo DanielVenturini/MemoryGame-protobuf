@@ -1,17 +1,5 @@
 # Draughts-with-gRPC-protobuf
 
-This is a project to Distributed System discipline. Simple Memory Game between two person.
+This is a project to Distributed System discipline. Simple Memory Game between two person in LAN.
 
-In Windows:
-python -m ensurepip
-
-In Linux:
-
-sudo apt-get install pip
-
-Also systems:
-
-python -m pip install protobuf
-python -m pip install protobuf-tools
-python -m pip install grpcio
-python -m pip install grpcio-tools
+On cmd 'python3 Server/Server.py'. If you dont have 'ifconfig', use 'python3 Server/Server.py 192.168.0.105 5555'. The 192.168.0.105 is the address of machine in the LAN and 5555 is a port to connect with server

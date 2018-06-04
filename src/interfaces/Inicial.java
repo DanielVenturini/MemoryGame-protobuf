@@ -79,9 +79,14 @@ public class Inicial extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel1.setText("OU");
 
-        textIp.setText("Digite o IP");
+        textIp.setText("192.168.0.105");
 
-        textPorta.setText("Digite a porta");
+        textPorta.setText("5555");
+        textPorta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textPortaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -107,7 +112,7 @@ public class Inicial extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(166, 166, 166)
                         .addComponent(jLabel1)))
-                .addContainerGap(65, Short.MAX_VALUE))
+                .addContainerGap(113, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -214,6 +219,10 @@ public class Inicial extends javax.swing.JFrame {
     private void textIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textIDActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_textIDActionPerformed
+
+    private void textPortaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textPortaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_textPortaActionPerformed
 
     private void inicializaMain(String nick, boolean assistir, String id){
         // passar o nick para a outra tela

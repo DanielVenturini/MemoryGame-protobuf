@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='MemoryGame.proto',
   package='',
   syntax='proto2',
-  serialized_pb=_b('\n\x10MemoryGame.proto\"7\n\x08\x45ndereco\x12\n\n\x02id\x18\x01 \x02(\x05\x12\x10\n\x08\x65ndereco\x18\x02 \x02(\t\x12\r\n\x05porta\x18\x03 \x02(\x05\"\'\n\x07\x43onecta\x12\x10\n\x08mensagem\x18\x01 \x02(\t\x12\n\n\x02id\x18\x02 \x02(\x05\x42\x08\n\x06\x65mRede')
+  serialized_pb=_b('\n\x10MemoryGame.proto\"7\n\x08\x45ndereco\x12\n\n\x02id\x18\x01 \x02(\x05\x12\x10\n\x08\x65ndereco\x18\x02 \x02(\t\x12\r\n\x05porta\x18\x03 \x02(\x05\"\'\n\x07\x43onecta\x12\x10\n\x08mensagem\x18\x01 \x02(\t\x12\n\n\x02id\x18\x02 \x02(\x05\"*\n\tResolvido\x12\x0e\n\x06idJogo\x18\x01 \x02(\x05\x12\r\n\x05\x62otao\x18\x02 \x02(\tB\x08\n\x06\x65mRede')
 )
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
@@ -108,8 +108,47 @@ _CONECTA = _descriptor.Descriptor(
   serialized_end=116,
 )
 
+
+_RESOLVIDO = _descriptor.Descriptor(
+  name='Resolvido',
+  full_name='Resolvido',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='idJogo', full_name='Resolvido.idJogo', index=0,
+      number=1, type=5, cpp_type=1, label=2,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='botao', full_name='Resolvido.botao', index=1,
+      number=2, type=9, cpp_type=9, label=2,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=118,
+  serialized_end=160,
+)
+
 DESCRIPTOR.message_types_by_name['Endereco'] = _ENDERECO
 DESCRIPTOR.message_types_by_name['Conecta'] = _CONECTA
+DESCRIPTOR.message_types_by_name['Resolvido'] = _RESOLVIDO
 
 Endereco = _reflection.GeneratedProtocolMessageType('Endereco', (_message.Message,), dict(
   DESCRIPTOR = _ENDERECO,
@@ -124,6 +163,13 @@ Conecta = _reflection.GeneratedProtocolMessageType('Conecta', (_message.Message,
   # @@protoc_insertion_point(class_scope:Conecta)
   ))
 _sym_db.RegisterMessage(Conecta)
+
+Resolvido = _reflection.GeneratedProtocolMessageType('Resolvido', (_message.Message,), dict(
+  DESCRIPTOR = _RESOLVIDO,
+  __module__ = 'MemoryGame_pb2'
+  # @@protoc_insertion_point(class_scope:Resolvido)
+  ))
+_sym_db.RegisterMessage(Resolvido)
 
 
 DESCRIPTOR.has_options = True

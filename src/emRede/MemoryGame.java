@@ -52,7 +52,8 @@ public final class MemoryGame {
   }
   /**
    * <pre>
-   * quando um cliente solicitar assistir
+   * quando um cliente solicitar novo jogo ou assistir
+   * retorna um endereco
    * </pre>
    *
    * Protobuf type {@code Endereco}
@@ -403,7 +404,8 @@ public final class MemoryGame {
     }
     /**
      * <pre>
-     * quando um cliente solicitar assistir
+     * quando um cliente solicitar novo jogo ou assistir
+     * retorna um endereco
      * </pre>
      *
      * Protobuf type {@code Endereco}
@@ -789,6 +791,10 @@ public final class MemoryGame {
     int getId();
   }
   /**
+   * <pre>
+   * iniciar e finalizar o jogo o cliente usara esta mensagem
+   * </pre>
+   *
    * Protobuf type {@code Conecta}
    */
   public  static final class Conecta extends
@@ -1095,6 +1101,10 @@ public final class MemoryGame {
       return builder;
     }
     /**
+     * <pre>
+     * iniciar e finalizar o jogo o cliente usara esta mensagem
+     * </pre>
+     *
      * Protobuf type {@code Conecta}
      */
     public static final class Builder extends
@@ -1406,6 +1416,659 @@ public final class MemoryGame {
 
   }
 
+  public interface ResolvidoOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:Resolvido)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>required int32 idJogo = 1;</code>
+     */
+    boolean hasIdJogo();
+    /**
+     * <code>required int32 idJogo = 1;</code>
+     */
+    int getIdJogo();
+
+    /**
+     * <code>required string botao = 2;</code>
+     */
+    boolean hasBotao();
+    /**
+     * <code>required string botao = 2;</code>
+     */
+    java.lang.String getBotao();
+    /**
+     * <code>required string botao = 2;</code>
+     */
+    com.google.protobuf.ByteString
+        getBotaoBytes();
+  }
+  /**
+   * <pre>
+   * diz qual botao daquela partida jah foi resolvido
+   * </pre>
+   *
+   * Protobuf type {@code Resolvido}
+   */
+  public  static final class Resolvido extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:Resolvido)
+      ResolvidoOrBuilder {
+    // Use Resolvido.newBuilder() to construct.
+    private Resolvido(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private Resolvido() {
+      idJogo_ = 0;
+      botao_ = "";
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private Resolvido(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 8: {
+              bitField0_ |= 0x00000001;
+              idJogo_ = input.readInt32();
+              break;
+            }
+            case 18: {
+              com.google.protobuf.ByteString bs = input.readBytes();
+              bitField0_ |= 0x00000002;
+              botao_ = bs;
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return emRede.MemoryGame.internal_static_Resolvido_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return emRede.MemoryGame.internal_static_Resolvido_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              emRede.MemoryGame.Resolvido.class, emRede.MemoryGame.Resolvido.Builder.class);
+    }
+
+    private int bitField0_;
+    public static final int IDJOGO_FIELD_NUMBER = 1;
+    private int idJogo_;
+    /**
+     * <code>required int32 idJogo = 1;</code>
+     */
+    public boolean hasIdJogo() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    /**
+     * <code>required int32 idJogo = 1;</code>
+     */
+    public int getIdJogo() {
+      return idJogo_;
+    }
+
+    public static final int BOTAO_FIELD_NUMBER = 2;
+    private volatile java.lang.Object botao_;
+    /**
+     * <code>required string botao = 2;</code>
+     */
+    public boolean hasBotao() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    /**
+     * <code>required string botao = 2;</code>
+     */
+    public java.lang.String getBotao() {
+      java.lang.Object ref = botao_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          botao_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>required string botao = 2;</code>
+     */
+    public com.google.protobuf.ByteString
+        getBotaoBytes() {
+      java.lang.Object ref = botao_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        botao_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      if (!hasIdJogo()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasBotao()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeInt32(1, idJogo_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, botao_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(1, idJogo_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, botao_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof emRede.MemoryGame.Resolvido)) {
+        return super.equals(obj);
+      }
+      emRede.MemoryGame.Resolvido other = (emRede.MemoryGame.Resolvido) obj;
+
+      boolean result = true;
+      result = result && (hasIdJogo() == other.hasIdJogo());
+      if (hasIdJogo()) {
+        result = result && (getIdJogo()
+            == other.getIdJogo());
+      }
+      result = result && (hasBotao() == other.hasBotao());
+      if (hasBotao()) {
+        result = result && getBotao()
+            .equals(other.getBotao());
+      }
+      result = result && unknownFields.equals(other.unknownFields);
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (hasIdJogo()) {
+        hash = (37 * hash) + IDJOGO_FIELD_NUMBER;
+        hash = (53 * hash) + getIdJogo();
+      }
+      if (hasBotao()) {
+        hash = (37 * hash) + BOTAO_FIELD_NUMBER;
+        hash = (53 * hash) + getBotao().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static emRede.MemoryGame.Resolvido parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static emRede.MemoryGame.Resolvido parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static emRede.MemoryGame.Resolvido parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static emRede.MemoryGame.Resolvido parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static emRede.MemoryGame.Resolvido parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static emRede.MemoryGame.Resolvido parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static emRede.MemoryGame.Resolvido parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static emRede.MemoryGame.Resolvido parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static emRede.MemoryGame.Resolvido parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static emRede.MemoryGame.Resolvido parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(emRede.MemoryGame.Resolvido prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     * diz qual botao daquela partida jah foi resolvido
+     * </pre>
+     *
+     * Protobuf type {@code Resolvido}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:Resolvido)
+        emRede.MemoryGame.ResolvidoOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return emRede.MemoryGame.internal_static_Resolvido_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return emRede.MemoryGame.internal_static_Resolvido_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                emRede.MemoryGame.Resolvido.class, emRede.MemoryGame.Resolvido.Builder.class);
+      }
+
+      // Construct using emRede.MemoryGame.Resolvido.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      public Builder clear() {
+        super.clear();
+        idJogo_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        botao_ = "";
+        bitField0_ = (bitField0_ & ~0x00000002);
+        return this;
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return emRede.MemoryGame.internal_static_Resolvido_descriptor;
+      }
+
+      public emRede.MemoryGame.Resolvido getDefaultInstanceForType() {
+        return emRede.MemoryGame.Resolvido.getDefaultInstance();
+      }
+
+      public emRede.MemoryGame.Resolvido build() {
+        emRede.MemoryGame.Resolvido result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public emRede.MemoryGame.Resolvido buildPartial() {
+        emRede.MemoryGame.Resolvido result = new emRede.MemoryGame.Resolvido(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.idJogo_ = idJogo_;
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.botao_ = botao_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof emRede.MemoryGame.Resolvido) {
+          return mergeFrom((emRede.MemoryGame.Resolvido)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(emRede.MemoryGame.Resolvido other) {
+        if (other == emRede.MemoryGame.Resolvido.getDefaultInstance()) return this;
+        if (other.hasIdJogo()) {
+          setIdJogo(other.getIdJogo());
+        }
+        if (other.hasBotao()) {
+          bitField0_ |= 0x00000002;
+          botao_ = other.botao_;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        if (!hasIdJogo()) {
+          return false;
+        }
+        if (!hasBotao()) {
+          return false;
+        }
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        emRede.MemoryGame.Resolvido parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (emRede.MemoryGame.Resolvido) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private int idJogo_ ;
+      /**
+       * <code>required int32 idJogo = 1;</code>
+       */
+      public boolean hasIdJogo() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      /**
+       * <code>required int32 idJogo = 1;</code>
+       */
+      public int getIdJogo() {
+        return idJogo_;
+      }
+      /**
+       * <code>required int32 idJogo = 1;</code>
+       */
+      public Builder setIdJogo(int value) {
+        bitField0_ |= 0x00000001;
+        idJogo_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required int32 idJogo = 1;</code>
+       */
+      public Builder clearIdJogo() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        idJogo_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object botao_ = "";
+      /**
+       * <code>required string botao = 2;</code>
+       */
+      public boolean hasBotao() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      /**
+       * <code>required string botao = 2;</code>
+       */
+      public java.lang.String getBotao() {
+        java.lang.Object ref = botao_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            botao_ = s;
+          }
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>required string botao = 2;</code>
+       */
+      public com.google.protobuf.ByteString
+          getBotaoBytes() {
+        java.lang.Object ref = botao_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          botao_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>required string botao = 2;</code>
+       */
+      public Builder setBotao(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+        botao_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string botao = 2;</code>
+       */
+      public Builder clearBotao() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        botao_ = getDefaultInstance().getBotao();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string botao = 2;</code>
+       */
+      public Builder setBotaoBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+        botao_ = value;
+        onChanged();
+        return this;
+      }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:Resolvido)
+    }
+
+    // @@protoc_insertion_point(class_scope:Resolvido)
+    private static final emRede.MemoryGame.Resolvido DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new emRede.MemoryGame.Resolvido();
+    }
+
+    public static emRede.MemoryGame.Resolvido getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<Resolvido>
+        PARSER = new com.google.protobuf.AbstractParser<Resolvido>() {
+      public Resolvido parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+          return new Resolvido(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<Resolvido> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<Resolvido> getParserForType() {
+      return PARSER;
+    }
+
+    public emRede.MemoryGame.Resolvido getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_Endereco_descriptor;
   private static final 
@@ -1416,6 +2079,11 @@ public final class MemoryGame {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_Conecta_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_Resolvido_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_Resolvido_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -1427,8 +2095,9 @@ public final class MemoryGame {
     java.lang.String[] descriptorData = {
       "\n\020MemoryGame.proto\"7\n\010Endereco\022\n\n\002id\030\001 \002" +
       "(\005\022\020\n\010endereco\030\002 \002(\t\022\r\n\005porta\030\003 \002(\005\"\'\n\007C" +
-      "onecta\022\020\n\010mensagem\030\001 \002(\t\022\n\n\002id\030\002 \002(\005B\010\n\006" +
-      "emRede"
+      "onecta\022\020\n\010mensagem\030\001 \002(\t\022\n\n\002id\030\002 \002(\005\"*\n\t" +
+      "Resolvido\022\016\n\006idJogo\030\001 \002(\005\022\r\n\005botao\030\002 \002(\t" +
+      "B\010\n\006emRede"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -1454,6 +2123,12 @@ public final class MemoryGame {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_Conecta_descriptor,
         new java.lang.String[] { "Mensagem", "Id", });
+    internal_static_Resolvido_descriptor =
+      getDescriptor().getMessageTypes().get(2);
+    internal_static_Resolvido_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_Resolvido_descriptor,
+        new java.lang.String[] { "IdJogo", "Botao", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

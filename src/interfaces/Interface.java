@@ -462,14 +462,11 @@ public class Interface extends javax.swing.JFrame {
                             .addGap(8, 8, 8)
                             .addComponent(labelJogador1)
                             .addGap(237, 237, 237)
+                            .addComponent(labelStatus)
+                            .addGap(245, 245, 245)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(labelId)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(labelStatus)
-                                    .addGap(245, 245, 245)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(labelPontos2)
-                                        .addComponent(labelJogador2)))))))
+                                .addComponent(labelPontos2)
+                                .addComponent(labelJogador2)))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
@@ -480,19 +477,19 @@ public class Interface extends javax.swing.JFrame {
                         .addComponent(jLabel3)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(289, 289, 289)
+                .addComponent(labelId)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(labelJogador1)
-                            .addComponent(labelJogador2)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(labelId)))
+                .addComponent(labelId)
+                .addGap(1, 1, 1)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelJogador1)
+                    .addComponent(labelJogador2))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -756,6 +753,11 @@ public class Interface extends javax.swing.JFrame {
     }
 
     public void trocaVez(){
+        if(assistindo){
+            minhaVez = false;
+            return;
+        }
+
         minhaVez = !minhaVez;
 
         if(minhaVez){
@@ -766,6 +768,11 @@ public class Interface extends javax.swing.JFrame {
     }
 
     public static void trocaVez(int num){
+        if(assistindo){
+            minhaVez = false;
+            return;
+        }
+
         minhaVez = !minhaVez;
 
         if(minhaVez){
@@ -783,6 +790,10 @@ public class Interface extends javax.swing.JFrame {
         // marca estes como resolvido
         botoesIcones.get(primeiro).setResolvido();
         botoesIcones.get(segundo).setResolvido();
+
+        // avisa o servidor que estes foram resolvidos
+        conexao.resolvido(botoesNomes.get(primeiro));
+        conexao.resolvido(botoesNomes.get(segundo));
     }
 
     public void alteraSegundoUsuario(String nome){

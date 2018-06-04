@@ -15,7 +15,8 @@ message Conecta {
 	required int32 id = 2;
 }
 
+// diz qual botao daquela partida jah foi resolvido
 message Resolvido {
-    required string jogador = 1;
-    required string botao = 1;
+    required int32 idJogo = 1;
+    required string botao = 2;
 }
