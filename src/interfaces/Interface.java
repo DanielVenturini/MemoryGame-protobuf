@@ -1038,6 +1038,10 @@ public class Interface extends javax.swing.JFrame {
         return seed;
     }
 
+    private static void getResolvidos(){
+        conexao.getResolvidos();
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -1087,6 +1091,10 @@ public class Interface extends javax.swing.JFrame {
             conectaServidor(args);
             inicializaBotoes();
             aguardaEEsconde(3000);
+
+            if(assistindo){
+                conexao.getResolvidos();
+            }
         }
     }
 

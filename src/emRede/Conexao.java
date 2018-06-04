@@ -175,16 +175,13 @@ public class Conexao {
         return id;
     }
 
-    public MemoryGame.Conecta criaMensagem(String msg){
-        return criaMensagem(msg, -1);
-    }
 
-    public MemoryGame.Conecta criaMensagem(String msg, int id) {
+    public MemoryGame.Conecta criaMensagem(String msg) {
         System.out.println("Will try to greet " + msg + " ...");
 
         MemoryGame.Conecta.Builder builder = MemoryGame.Conecta.newBuilder();
         builder.setMensagem(msg);
-        builder.setId(id);
+        builder.setId(-1);
 
         MemoryGame.Conecta conecta = builder.build();
         return conecta;
@@ -199,6 +196,24 @@ public class Conexao {
 
         MemoryGame.Resolvido resolvido = builder.build();
         return resolvido;
+    }
+
+    public void getResolvidos(){
+        try {
+            conecta();
+            criaMensagem("@GETREVELADOS " + Integer.toString(inte.getSeed())).writeTo(socket.getOutputStream());
+
+            while(true){
+                DataInputStream recebe = new DataInputStream(socket.getInputStream());
+
+                // recebe o compromisso do servidor e faz o Parse
+                MemoryGame.Resolvido resolvido = MemoryGame.Resolvido.parseFrom(recebe);
+                System.out.println("Botao resolvido: " + resolvido.getBotao());
+            }
+
+        } catch (Exception ex) {
+            System.out.println("Erro ao pegar os resolvidos: " + ex);
+        }
     }
 
     // fica ouvindo

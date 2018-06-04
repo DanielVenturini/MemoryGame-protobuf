@@ -64,6 +64,21 @@ class MemoryGameServicer():
         except:
             print("Me derrubaram aqui O, na ora de resolver")
 
+    # retorna todas os botoes que ja foram resolvidos
+    def pegaTodosResolvidos(self, id, conn):
+        try:
+            resolvidos = self.resolvidos[int(id)]
+            print("Resolvidos: ", resolvidos)
+
+            for botao in resolvidos:
+                botaoResolvido = Resolvido()
+                botaoResolvido.idJogo = id              # tecnicamente o cliente nao vai usar este id
+                botaoResolvido.botao = botao            # tecnicamente o cliente nao vai usar este id
+                conn.send(botao.SerializeToString())    # envia o botao
+        except:
+            print("Me derrubaram aqui O, na hora de devolver os resolvidos")
+            return None
+
     def criaSocket(self):
         self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         try:
@@ -107,6 +122,11 @@ class MemoryGameServicer():
             # '@FIMJOGO IDJOGO'
             id = mensagem.split(' ')[1]
             self.FimJogo(id)
+
+        elif(mensagem.startswith('@GETREVELADOS')):
+            # '@FIMJOGO IDJOGO'
+            id = mensagem.split(' ')[1]
+            self.pegaTodosResolvidos(id, conn)
 
         elif(mensagem.startswith('@ASSISTIR')):
             id = mensagem.split(' ')[1]
