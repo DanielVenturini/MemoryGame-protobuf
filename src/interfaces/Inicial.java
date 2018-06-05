@@ -213,7 +213,7 @@ public class Inicial extends javax.swing.JFrame {
         }
 
         assistir = true;
-        inicializaMain("", assistir, id);
+        inicializaMain(nickText.getText(), assistir, id);
     }//GEN-LAST:event_botaoAssistirActionPerformed
 
     private void textIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textIDActionPerformed

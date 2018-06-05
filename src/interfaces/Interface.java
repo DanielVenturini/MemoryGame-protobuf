@@ -6,6 +6,7 @@
 package interfaces;
 
 import emRede.Conexao;
+import emRede.MemoryGame;
 import java.awt.Color;
 import java.io.IOException;
 import java.util.Collections;
@@ -909,6 +910,32 @@ public class Interface extends javax.swing.JFrame {
         System.out.println("Erro, nenum botao encontrado: " + botaoNome);
     }
 
+    public void apenasRevela(LinkedList<MemoryGame.Resolvido> revelados){
+        // iterando em todos os botoes
+        int i = 0;
+        IconeControle icone;
+        ImageIcon iconeNovo;
+
+        for(JButton botao : botoesNomes.keySet()){
+
+            for(MemoryGame.Resolvido botaoNome : revelados){
+                if(botoesNomes.get(botao).equals(botaoNome.getBotao())){
+                    botoesIcones.get(botao).setResolvido();
+                    i ++;   // incrementa na quantidade de resolvidos jahh
+
+                    icone = botoesIcones.get(botao);
+                    iconeNovo = icone.getIcone();
+                    botao.setIcon(iconeNovo);
+                }
+            }
+
+            // terminou todos
+            if(i == revelados.size()){
+                return;
+            }
+        }
+    }
+
     private static void executa(JButton button){
         executa(button, false);
     }
@@ -1116,15 +1143,15 @@ public class Interface extends javax.swing.JFrame {
         icons[13] = "sun";
         icons[14] = "windows";
 
-        botoes.add(jButton1);  botoesNomes.put(jButton1, "jButton1");
-        botoes.add(jButton2);  botoesNomes.put(jButton2, "jButton2");
-        botoes.add(jButton3);  botoesNomes.put(jButton3, "jButton3");
-        botoes.add(jButton4);  botoesNomes.put(jButton4, "jButton4");
-        botoes.add(jButton5);  botoesNomes.put(jButton5, "jButton5");
-        botoes.add(jButton6);  botoesNomes.put(jButton6, "jButton6");
-        botoes.add(jButton7);  botoesNomes.put(jButton7, "jButton7");
-        botoes.add(jButton8);  botoesNomes.put(jButton8, "jButton8");
-        botoes.add(jButton9);  botoesNomes.put(jButton9, "jButton9");
+        botoes.add(jButton1);  botoesNomes.put(jButton1, "jButton01");
+        botoes.add(jButton2);  botoesNomes.put(jButton2, "jButton02");
+        botoes.add(jButton3);  botoesNomes.put(jButton3, "jButton03");
+        botoes.add(jButton4);  botoesNomes.put(jButton4, "jButton04");
+        botoes.add(jButton5);  botoesNomes.put(jButton5, "jButton05");
+        botoes.add(jButton6);  botoesNomes.put(jButton6, "jButton06");
+        botoes.add(jButton7);  botoesNomes.put(jButton7, "jButton07");
+        botoes.add(jButton8);  botoesNomes.put(jButton8, "jButton08");
+        botoes.add(jButton9);  botoesNomes.put(jButton9, "jButton09");
         botoes.add(jButton10); botoesNomes.put(jButton10, "jButton10");
         botoes.add(jButton11); botoesNomes.put(jButton11, "jButton11");
         botoes.add(jButton12); botoesNomes.put(jButton12, "jButton12");

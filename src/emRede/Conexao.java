@@ -15,6 +15,7 @@ import java.net.InetAddress;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.HashMap;
+import java.util.LinkedList;
 
 // Endereco.newBuilder();
 
@@ -199,20 +200,26 @@ public class Conexao {
     }
 
     public void getResolvidos(){
+        LinkedList<MemoryGame.Resolvido> resolvidos = new LinkedList<>();
+
         try {
             conecta();
             criaMensagem("@GETREVELADOS " + Integer.toString(inte.getSeed())).writeTo(socket.getOutputStream());
+            DataInputStream recebe = new DataInputStream(socket.getInputStream());
 
             while(true){
-                DataInputStream recebe = new DataInputStream(socket.getInputStream());
 
-                // recebe o compromisso do servidor e faz o Parse
-                MemoryGame.Resolvido resolvido = MemoryGame.Resolvido.parseFrom(recebe);
-                System.out.println("Botao resolvido: " + resolvido.getBotao());
+                // sempre vindo do servidor sera de 15 bytes
+                byte[] buffer = new byte[15];
+                recebe.read(buffer);
+                MemoryGame.Resolvido resolvido = MemoryGame.Resolvido.parseFrom(buffer);
+                resolvidos.add(resolvido);
             }
 
+        // vai gerar uma excessao quando nao houver mais nada para receber
         } catch (Exception ex) {
-            System.out.println("Erro ao pegar os resolvidos: " + ex);
+            // revela todos
+            inte.apenasRevela(resolvidos);
         }
     }
 

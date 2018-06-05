@@ -55,12 +55,8 @@ class MemoryGameServicer():
 
     def Resolve(self, botao, id):
         try:
-            print(self.resolvidos)
             b = self.resolvidos[int(id)]
             b.append(botao)
-            print(self.resolvidos)
-            print("Adicionado o botao com sucesso")
-            print(self.resolvidos)
         except:
             print("Me derrubaram aqui O, na ora de resolver")
 
@@ -68,15 +64,15 @@ class MemoryGameServicer():
     def pegaTodosResolvidos(self, id, conn):
         try:
             resolvidos = self.resolvidos[int(id)]
-            print("Resolvidos: ", resolvidos)
 
             for botao in resolvidos:
                 botaoResolvido = Resolvido()
-                botaoResolvido.idJogo = id              # tecnicamente o cliente nao vai usar este id
-                botaoResolvido.botao = botao            # tecnicamente o cliente nao vai usar este id
-                conn.send(botao.SerializeToString())    # envia o botao
-        except:
-            print("Me derrubaram aqui O, na hora de devolver os resolvidos")
+                botaoResolvido.idJogo = int(id)         # tecnicamente o cliente nao vai usar este id
+                botaoResolvido.botao = botao            # tecnicamente o cliente nao vai usar este i
+
+                conn.send(botaoResolvido.SerializeToString())    # envia o botao
+        except Exception as e:
+            print("Erro ao criar botao: " + str(e))
             return None
 
     def criaSocket(self):
@@ -134,9 +130,9 @@ class MemoryGameServicer():
 
     def noAr(self):
         self.criaSocket()
+        print("Conectado em " + self.ip + ":" + str(self.porta))
 
         while True:  # ever on
-            print("Conectado em " + self.ip + ":" + str(self.porta))
             conn, addr = self.s.accept()
             args = []
             args.append(conn)
