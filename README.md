@@ -5,11 +5,13 @@ This is a project to Distributed System discipline. Simple Memory Game between t
 The server is in Python3, and the exchange of the messages between server and client are using package Protobuf.
 
 ## Install Protobuf:
-'''
+```
 sudo python3 -m pip install python3-protobuf
 sudo python3 -m pip install --upgrade protobuf
-'''
+```
 
-On cmd 'python3 Server/Server.py'. If you dont have 'ifconfig', use 'python3 Server/Server.py 192.168.0.105'. The 192.168.0.105 is the address of machine in the LAN and 5555 is a port to connect with server.
+On cmd 'python3 Server/Server.py'. If you dont have 'ifconfig', use 'python3 Server/Server.py 192.168.0.105'. The 192.168.0.105 is the address of machine in the LAN.
+
+To watch any match, use the ID, shown in the game screen.
 
 Have fun.
