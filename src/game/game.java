@@ -18,7 +18,7 @@ public class game {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        new Inicial().main(null);
+        new Inicial().setVisible(true);
     }
     
 }
