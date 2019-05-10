@@ -10,7 +10,7 @@ sudo python3 -m pip install python3-protobuf
 sudo python3 -m pip install --upgrade protobuf
 ```
 
-On cmd 'python3 Server/Server.py'. If you dont have 'ifconfig', use 'python3 Server/Server.py 192.168.0.105'. The 192.168.0.105 is the address of machine in the LAN.
+On cmd `python3 Server/Server.py`. If you dont have `ifconfig`, use `python3 Server/Server.py 192.168.0.105`. The `192.168.0.105` is the address of machine in the LAN.
 
 To watch any match, use the ID, shown in the game screen.
 
